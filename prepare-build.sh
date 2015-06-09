@@ -57,7 +57,7 @@ fi
 
 if [ ! -e $ROOTDIR/build/conf/bblayers.conf ]; then
     cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-LCONF_VERSION = "5"
+LCONF_VERSION = "6"
 
 BBPATH = "\${TOPDIR}"
 BBFILES ?= ""
