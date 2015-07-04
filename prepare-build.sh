@@ -17,27 +17,39 @@
 ROOTDIR=`pwd`
 
 # Fetch sources
-mkdir -p sources build/conf
-if [ ! -d sources/poky ] ; then
-    git clone -b dizzy http://git.yoctoproject.org/git/poky sources/poky
+mkdir -p src build/conf
+if [ ! -d src/oe-core ] ; then
+    git clone -b fido git://git.openembedded.org/openembedded-core src/oe-core
 fi
-if [ ! -d sources/meta-openembedded ] ; then
-    git clone -b dizzy https://github.com/openembedded/meta-openembedded.git sources/meta-openembedded
+if [ ! -d src/oe-core/bitbake ] ; then
+    git clone -b 1.26 git://git.openembedded.org/bitbake src/oe-core/bitbake
 fi
-if [ ! -d sources/meta-qt5 ] ; then
-    git clone -b dizzy https://github.com/meta-qt5/meta-qt5.git sources/meta-qt5
+if [ ! -d src/meta-openembedded ] ; then
+    git clone -b master https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
 fi
-if [ ! -d sources/meta-asteroid ] ; then
-    git clone https://github.com/Asteroid-Project/meta-asteroid sources/meta-asteroid
+if [ ! -d src/meta-asteroid ] ; then
+    git clone -b fido https://github.com/FlorentRevest/meta-asteroid src/meta-asteroid
 fi
-if [ ! -d sources/meta-radxa-hybris ] ; then
-    git clone https://github.com/FlorentRevest/meta-radxa-hybris sources/meta-radxa-hybris
+if [ ! -d src/meta-radxa-hybris ] ; then
+    git clone -b fido https://github.com/FlorentRevest/meta-radxa-hybris src/meta-radxa-hybris
+fi
+if [ ! -d src/meta-smartphone ] ; then
+    git clone -b fido https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
+fi
+if [ ! -d src/meta-rockchip ] ; then
+    git clone https://github.com/linux-rockchip/meta-rockchip src/meta-rockchip
+fi
+if [ ! -d src/meta-virtualization ] ; then
+    git clone -b fido http://git.yoctoproject.org/git/meta-virtualization src/meta-virtualization
+fi
+if [ ! -d src/meta-qt5 ] ; then
+    git clone -b fido https://github.com/meta-qt5/meta-qt5.git src/meta-qt5 src/meta-qt5
 fi
 
 # Create local.conf and bblayers.conf
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
     cat >> $ROOTDIR/build/conf/local.conf << EOF
-MACHINE ??= "radxa-hybris"
+MACHINE ??= "radxa-rock"
 DISTRO ?= "asteroid"
 PACKAGE_CLASSES ?= "package_ipk"
 
@@ -57,32 +69,42 @@ fi
 
 if [ ! -e $ROOTDIR/build/conf/bblayers.conf ]; then
     cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-LCONF_VERSION = "5"
+LCONF_VERSION = "6"
 
 BBPATH = "\${TOPDIR}"
 BBFILES ?= ""
 
 BBLAYERS ?= " \\
-  $ROOTDIR/sources/poky/meta \\
-  $ROOTDIR/sources/meta-asteroid \\
-  $ROOTDIR/sources/meta-radxa-hybris \\
-  $ROOTDIR/sources/meta-openembedded/meta-oe \\
-  $ROOTDIR/sources/meta-openembedded/meta-ruby \\
-  $ROOTDIR/sources/meta-qt5 \\
+  $ROOTDIR/src/meta-qt5 \\
+  $ROOTDIR/src/oe-core/meta \\
+  $ROOTDIR/src/meta-rockchip \\
+  $ROOTDIR/src/meta-asteroid \\
+  $ROOTDIR/src/meta-radxa-hybris \\
+  $ROOTDIR/src/meta-virtualization \\
+  $ROOTDIR/src/meta-openembedded/meta-oe \\
+  $ROOTDIR/src/meta-openembedded/meta-ruby \\
+  $ROOTDIR/src/meta-smartphone/meta-android \\
+  $ROOTDIR/src/meta-openembedded/meta-python \\
+  $ROOTDIR/src/meta-openembedded/meta-networking \\
   "
 BBLAYERS_NON_REMOVABLE ?= " \\
-  $ROOTDIR/sources/poky/meta \\
-  $ROOTDIR/sources/meta-asteroid \\
-  $ROOTDIR/sources/meta-radxa-hybris \\
-  $ROOTDIR/sources/meta-openembedded/meta-oe \\
-  $ROOTDIR/sources/meta-openembedded/meta-ruby \\
-  $ROOTDIR/sources/meta-qt5/ \\
+  $ROOTDIR/src/meta-qt5 \\
+  $ROOTDIR/src/oe-core/meta \\
+  $ROOTDIR/src/meta-rockchip \\
+  $ROOTDIR/src/meta-asteroid \\
+  $ROOTDIR/src/meta-radxa-hybris \\
+  $ROOTDIR/src/meta-virtualization \\
+  $ROOTDIR/src/meta-openembedded/meta-oe \\
+  $ROOTDIR/src/meta-openembedded/meta-ruby \\
+  $ROOTDIR/src/meta-smartphone/meta-android \\
+  $ROOTDIR/src/meta-openembedded/meta-python \\
+  $ROOTDIR/src/meta-openembedded/meta-networking \\
   "
 EOF
 fi
 
 # Init build env
-cd sources/poky
+cd src/oe-core
 . ./oe-init-build-env $ROOTDIR/build > /dev/null
 
 cat << EOF
