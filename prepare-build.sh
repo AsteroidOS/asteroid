@@ -28,7 +28,7 @@ if [ ! -d src/meta-openembedded ] ; then
     git clone -b master https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
 fi
 if [ ! -d src/meta-asteroid ] ; then
-    git clone -b fido https://github.com/FlorentRevest/meta-asteroid src/meta-asteroid
+    git clone -b fido https://github.com/Asteroid-Project/meta-asteroid src/meta-asteroid
 fi
 if [ ! -d src/meta-radxa-hybris ] ; then
     git clone -b fido https://github.com/FlorentRevest/meta-radxa-hybris src/meta-radxa-hybris
@@ -43,7 +43,7 @@ if [ ! -d src/meta-virtualization ] ; then
     git clone -b fido http://git.yoctoproject.org/git/meta-virtualization src/meta-virtualization
 fi
 if [ ! -d src/meta-qt5 ] ; then
-    git clone -b fido https://github.com/meta-qt5/meta-qt5.git src/meta-qt5 src/meta-qt5
+    git clone -b fido https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
 
 # Create local.conf and bblayers.conf
