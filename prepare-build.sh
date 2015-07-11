@@ -30,14 +30,8 @@ fi
 if [ ! -d src/meta-asteroid ] ; then
     git clone -b fido https://github.com/Asteroid-Project/meta-asteroid src/meta-asteroid
 fi
-if [ ! -d src/meta-radxa-hybris ] ; then
-    git clone -b fido https://github.com/FlorentRevest/meta-radxa-hybris src/meta-radxa-hybris
-fi
 if [ ! -d src/meta-smartphone ] ; then
     git clone -b fido https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
-fi
-if [ ! -d src/meta-rockchip ] ; then
-    git clone https://github.com/linux-rockchip/meta-rockchip src/meta-rockchip
 fi
 if [ ! -d src/meta-virtualization ] ; then
     git clone -b fido http://git.yoctoproject.org/git/meta-virtualization src/meta-virtualization
@@ -46,10 +40,53 @@ if [ ! -d src/meta-qt5 ] ; then
     git clone -b fido https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
 
+case ${1} in
+    cubie)
+        if [ ! -d src/meta-cubie-hybris ] ; then
+            git clone https://github.com/FlorentRevest/meta-cubie-hybris src/meta-cubie-hybris
+        fi
+        if [ ! -d src/meta-sunxi ] ; then
+            git clone https://github.com/linux-sunxi/meta-sunxi src/meta-sunxi
+        fi
+        ;;
+    odroid)
+        if [ ! -d src/meta-odroid-hybris ] ; then
+            git clone https://github.com/FlorentRevest/meta-odroid-hybris src/meta-odroid-hybris
+        fi
+        if [ ! -d src/meta-amlogic ] ; then
+            git clone https://github.com/linux-meson/meta-amlogic.git src/meta-amlogic
+        fi
+        ;;
+    *)
+        if [ ! -d src/meta-radxa-hybris ] ; then
+            git clone https://github.com/FlorentRevest/meta-radxa-hybris src/meta-radxa-hybris
+        fi
+        if [ ! -d src/meta-rockchip ] ; then
+            git clone https://github.com/linux-rockchip/meta-rockchip src/meta-rockchip
+        fi
+        ;;
+esac
+
 # Create local.conf and bblayers.conf
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
-    cat >> $ROOTDIR/build/conf/local.conf << EOF
+    case ${1} in
+        cubie)
+            cat > $ROOTDIR/build/conf/local.conf << EOF
+MACHINE ??= "cubieboard"
+EOF
+            ;;
+        odroid)
+            cat > $ROOTDIR/build/conf/local.conf << EOF
+MACHINE ??= "odroidc1"
+EOF
+            ;;
+        *)
+            cat > $ROOTDIR/build/conf/local.conf << EOF
 MACHINE ??= "radxa-rock"
+EOF
+            ;;
+    esac
+    cat >> $ROOTDIR/build/conf/local.conf << EOF
 DISTRO ?= "asteroid"
 PACKAGE_CLASSES ?= "package_ipk"
 
@@ -68,7 +105,7 @@ EOF
 fi
 
 if [ ! -e $ROOTDIR/build/conf/bblayers.conf ]; then
-    cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+    cat > $ROOTDIR/build/conf/bblayers.conf << EOF
 LCONF_VERSION = "6"
 
 BBPATH = "\${TOPDIR}"
@@ -77,30 +114,70 @@ BBFILES ?= ""
 BBLAYERS ?= " \\
   $ROOTDIR/src/meta-qt5 \\
   $ROOTDIR/src/oe-core/meta \\
-  $ROOTDIR/src/meta-rockchip \\
   $ROOTDIR/src/meta-asteroid \\
-  $ROOTDIR/src/meta-radxa-hybris \\
   $ROOTDIR/src/meta-virtualization \\
   $ROOTDIR/src/meta-openembedded/meta-oe \\
   $ROOTDIR/src/meta-openembedded/meta-ruby \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
+EOF
+    case ${1} in
+        cubie)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-sunxi \\
+  $ROOTDIR/src/meta-cubie-hybris \\
+EOF
+            ;;
+        odroid)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-amlogic \\
+  $ROOTDIR/src/meta-odroid-hybris \\
+EOF
+            ;;
+        *)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-rockchip \\
+  $ROOTDIR/src/meta-radxa-hybris \\
+EOF
+            ;;
+    esac
+    cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   "
 BBLAYERS_NON_REMOVABLE ?= " \\
   $ROOTDIR/src/meta-qt5 \\
   $ROOTDIR/src/oe-core/meta \\
-  $ROOTDIR/src/meta-rockchip \\
   $ROOTDIR/src/meta-asteroid \\
-  $ROOTDIR/src/meta-radxa-hybris \\
   $ROOTDIR/src/meta-virtualization \\
   $ROOTDIR/src/meta-openembedded/meta-oe \\
   $ROOTDIR/src/meta-openembedded/meta-ruby \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
+EOF
+    case ${1} in
+        cubie)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-sunxi \\
+  $ROOTDIR/src/meta-cubie-hybris \\
   "
 EOF
+            ;;
+        odroid)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-amlogic \\
+  $ROOTDIR/src/meta-odroid-hybris \\
+  "
+EOF
+            ;;
+        *)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-rockchip \\
+  $ROOTDIR/src/meta-radxa-hybris \\
+  "
+EOF
+            ;;
+    esac
 fi
 
 # Init build env
