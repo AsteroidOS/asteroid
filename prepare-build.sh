@@ -28,7 +28,7 @@ if [ ! -d src/meta-openembedded ] ; then
     git clone -b master https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
 fi
 if [ ! -d src/meta-asteroid ] ; then
-    git clone -b fido https://github.com/Asteroid-Project/meta-asteroid src/meta-asteroid
+    git clone https://github.com/Asteroid-Project/meta-asteroid src/meta-asteroid
 fi
 if [ ! -d src/meta-smartphone ] ; then
     git clone -b fido https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
