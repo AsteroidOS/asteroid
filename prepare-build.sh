@@ -118,6 +118,7 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-virtualization \\
   $ROOTDIR/src/meta-openembedded/meta-oe \\
   $ROOTDIR/src/meta-openembedded/meta-ruby \\
+  $ROOTDIR/src/meta-openembedded/meta-gnome \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
@@ -151,6 +152,7 @@ BBLAYERS_NON_REMOVABLE ?= " \\
   $ROOTDIR/src/meta-virtualization \\
   $ROOTDIR/src/meta-openembedded/meta-oe \\
   $ROOTDIR/src/meta-openembedded/meta-ruby \\
+  $ROOTDIR/src/meta-openembedded/meta-gnome \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
