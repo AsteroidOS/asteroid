@@ -41,6 +41,11 @@ if [ ! -d src/meta-qt5 ] ; then
 fi
 
 case ${1} in
+    dory)
+        if [ ! -d src/meta-dory-hybris ] ; then
+            git clone https://github.com/Asteroid-Project/meta-dory-hybris src/meta-dory-hybris
+        fi
+        ;;
     cubie)
         if [ ! -d src/meta-cubie-hybris ] ; then
             git clone https://github.com/FlorentRevest/meta-cubie-hybris src/meta-cubie-hybris
@@ -70,6 +75,11 @@ esac
 # Create local.conf and bblayers.conf
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
     case ${1} in
+        dory)
+            cat > $ROOTDIR/build/conf/local.conf << EOF
+MACHINE ??= "dory"
+EOF
+            ;;
         cubie)
             cat > $ROOTDIR/build/conf/local.conf << EOF
 MACHINE ??= "cubieboard"
@@ -124,6 +134,11 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
 EOF
     case ${1} in
+        dory)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-dory-hybris \\
+EOF
+            ;;
         cubie)
             cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-sunxi \\
@@ -158,6 +173,11 @@ BBLAYERS_NON_REMOVABLE ?= " \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
 EOF
     case ${1} in
+        dory)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-dory-hybris \\
+EOF
+            ;;
         cubie)
             cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-sunxi \\
