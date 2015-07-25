@@ -176,6 +176,7 @@ EOF
         dory)
             cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-dory-hybris \\
+  "
 EOF
             ;;
         cubie)
