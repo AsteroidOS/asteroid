@@ -41,7 +41,7 @@ if [ ! -d src/meta-qt5 ] ; then
 fi
 
 case ${1} in
-    dory)
+    *)
         if [ ! -d src/meta-dory-hybris ] ; then
             git clone https://github.com/Asteroid-Project/meta-dory-hybris src/meta-dory-hybris
         fi
@@ -62,7 +62,7 @@ case ${1} in
             git clone https://github.com/linux-meson/meta-amlogic.git src/meta-amlogic
         fi
         ;;
-    *)
+    radxa)
         if [ ! -d src/meta-radxa-hybris ] ; then
             git clone https://github.com/FlorentRevest/meta-radxa-hybris src/meta-radxa-hybris
         fi
@@ -75,7 +75,7 @@ esac
 # Create local.conf and bblayers.conf
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
     case ${1} in
-        dory)
+        *)
             cat > $ROOTDIR/build/conf/local.conf << EOF
 MACHINE ??= "dory"
 EOF
@@ -90,7 +90,7 @@ EOF
 MACHINE ??= "odroidc1"
 EOF
             ;;
-        *)
+        radxa)
             cat > $ROOTDIR/build/conf/local.conf << EOF
 MACHINE ??= "rk3188-radxarock"
 EOF
@@ -134,46 +134,7 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
 EOF
     case ${1} in
-        dory)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-  $ROOTDIR/src/meta-dory-hybris \\
-EOF
-            ;;
-        cubie)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-  $ROOTDIR/src/meta-sunxi \\
-  $ROOTDIR/src/meta-cubie-hybris \\
-EOF
-            ;;
-        odroid)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-  $ROOTDIR/src/meta-amlogic \\
-  $ROOTDIR/src/meta-odroid-hybris \\
-EOF
-            ;;
         *)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-  $ROOTDIR/src/meta-rockchip \\
-  $ROOTDIR/src/meta-radxa-hybris \\
-EOF
-            ;;
-    esac
-    cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-  "
-BBLAYERS_NON_REMOVABLE ?= " \\
-  $ROOTDIR/src/meta-qt5 \\
-  $ROOTDIR/src/oe-core/meta \\
-  $ROOTDIR/src/meta-asteroid \\
-  $ROOTDIR/src/meta-virtualization \\
-  $ROOTDIR/src/meta-openembedded/meta-oe \\
-  $ROOTDIR/src/meta-openembedded/meta-ruby \\
-  $ROOTDIR/src/meta-openembedded/meta-gnome \\
-  $ROOTDIR/src/meta-smartphone/meta-android \\
-  $ROOTDIR/src/meta-openembedded/meta-python \\
-  $ROOTDIR/src/meta-openembedded/meta-networking \\
-EOF
-    case ${1} in
-        dory)
             cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-dory-hybris \\
   "
@@ -193,7 +154,7 @@ EOF
   "
 EOF
             ;;
-        *)
+        radxa)
             cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-rockchip \\
   $ROOTDIR/src/meta-radxa-hybris \\
