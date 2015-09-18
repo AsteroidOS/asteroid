@@ -132,6 +132,7 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
+  $ROOTDIR/src/meta-openembedded/meta-filesystems \\
 EOF
     case ${1} in
         *)
