@@ -25,7 +25,7 @@ if [ ! -d src/oe-core/bitbake ] ; then
     git clone -b 1.26 git://git.openembedded.org/bitbake src/oe-core/bitbake
 fi
 if [ ! -d src/meta-openembedded ] ; then
-    git clone -b master https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
+    git clone -b fido https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
 fi
 if [ ! -d src/meta-asteroid ] ; then
     git clone https://github.com/Asteroid-Project/meta-asteroid src/meta-asteroid
