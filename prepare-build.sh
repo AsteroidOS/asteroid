@@ -28,7 +28,7 @@ if [ ! -d src/meta-openembedded ] ; then
     git clone -b fido https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
 fi
 if [ ! -d src/meta-asteroid ] ; then
-    git clone https://github.com/Asteroid-Project/meta-asteroid src/meta-asteroid
+    git clone https://github.com/AsteroidOS/meta-asteroid src/meta-asteroid
 fi
 if [ ! -d src/meta-smartphone ] ; then
     git clone -b fido https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
@@ -43,33 +43,14 @@ fi
 case ${1} in
     *)
         if [ ! -d src/meta-dory-hybris ] ; then
-            git clone https://github.com/Asteroid-Project/meta-dory-hybris src/meta-dory-hybris
+            git clone https://github.com/AsteroidOS/meta-dory-hybris src/meta-dory-hybris
         fi
         ;;
-    cubie)
-        if [ ! -d src/meta-cubie-hybris ] ; then
-            git clone https://github.com/FlorentRevest/meta-cubie-hybris src/meta-cubie-hybris
-        fi
-        if [ ! -d src/meta-sunxi ] ; then
-            git clone https://github.com/linux-sunxi/meta-sunxi src/meta-sunxi
-        fi
-        ;;
-    odroid)
-        if [ ! -d src/meta-odroid-hybris ] ; then
-            git clone https://github.com/FlorentRevest/meta-odroid-hybris src/meta-odroid-hybris
-        fi
-        if [ ! -d src/meta-amlogic ] ; then
-            git clone https://github.com/linux-meson/meta-amlogic.git src/meta-amlogic
-        fi
-        ;;
-    radxa)
-        if [ ! -d src/meta-radxa-hybris ] ; then
-            git clone https://github.com/FlorentRevest/meta-radxa-hybris src/meta-radxa-hybris
-        fi
-        if [ ! -d src/meta-rockchip ] ; then
-            git clone https://github.com/linux-rockchip/meta-rockchip src/meta-rockchip
-        fi
-        ;;
+#    newWatch)
+#        if [ ! -d src/meta-newWatch-hybris ] ; then
+#            git clone https://github.com/AsteroidOS/meta-newWatch-hybris src/meta-newWatch-hybris
+#        fi
+#        ;;
 esac
 
 # Create local.conf and bblayers.conf
@@ -80,21 +61,11 @@ if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
 MACHINE ??= "dory"
 EOF
             ;;
-        cubie)
-            cat > $ROOTDIR/build/conf/local.conf << EOF
-MACHINE ??= "cubieboard"
-EOF
-            ;;
-        odroid)
-            cat > $ROOTDIR/build/conf/local.conf << EOF
-MACHINE ??= "odroidc1"
-EOF
-            ;;
-        radxa)
-            cat > $ROOTDIR/build/conf/local.conf << EOF
-MACHINE ??= "rk3188-radxarock"
-EOF
-            ;;
+#        newWatch)
+#            cat > $ROOTDIR/build/conf/local.conf << EOF
+#MACHINE ??= "newWatch"
+#EOF
+#            ;;
     esac
     cat >> $ROOTDIR/build/conf/local.conf << EOF
 DISTRO ?= "asteroid"
@@ -141,27 +112,12 @@ EOF
   "
 EOF
             ;;
-        cubie)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-  $ROOTDIR/src/meta-sunxi \\
-  $ROOTDIR/src/meta-cubie-hybris \\
-  "
-EOF
-            ;;
-        odroid)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-  $ROOTDIR/src/meta-amlogic \\
-  $ROOTDIR/src/meta-odroid-hybris \\
-  "
-EOF
-            ;;
-        radxa)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-  $ROOTDIR/src/meta-rockchip \\
-  $ROOTDIR/src/meta-radxa-hybris \\
-  "
-EOF
-            ;;
+#        newWatch)
+#            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+#  $ROOTDIR/src/meta-newWatch-hybris \\
+#  "
+#EOF
+#            ;;
     esac
 fi
 
@@ -173,7 +129,7 @@ cat << EOF
 Welcome to the Asteroid compilation script.
 
 If you meet any issue you can report it to the project's github page:
-    https://github.com/Asteroid-Project
+    https://github.com/AsteroidOS
 
 You can now run the following command to get started with the compilation:
     bitbake asteroid-image
