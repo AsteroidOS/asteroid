@@ -19,25 +19,25 @@ ROOTDIR=`pwd`
 # Fetch sources
 mkdir -p src build/conf
 if [ ! -d src/oe-core ] ; then
-    git clone -b fido git://git.openembedded.org/openembedded-core src/oe-core
+    git clone -b jethro git://git.openembedded.org/openembedded-core src/oe-core
 fi
 if [ ! -d src/oe-core/bitbake ] ; then
-    git clone -b 1.26 git://git.openembedded.org/bitbake src/oe-core/bitbake
+    git clone -b 1.28 git://git.openembedded.org/bitbake src/oe-core/bitbake
 fi
 if [ ! -d src/meta-openembedded ] ; then
-    git clone -b fido https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
+    git clone -b jethro https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
 fi
 if [ ! -d src/meta-asteroid ] ; then
     git clone https://github.com/AsteroidOS/meta-asteroid src/meta-asteroid
 fi
 if [ ! -d src/meta-smartphone ] ; then
-    git clone -b fido https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
+    git clone -b jethro https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
 fi
 if [ ! -d src/meta-virtualization ] ; then
-    git clone -b fido http://git.yoctoproject.org/git/meta-virtualization src/meta-virtualization
+    git clone -b master http://git.yoctoproject.org/git/meta-virtualization src/meta-virtualization
 fi
 if [ ! -d src/meta-qt5 ] ; then
-    git clone -b fido https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
+    git clone -b jethro https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
 
 case ${1} in
