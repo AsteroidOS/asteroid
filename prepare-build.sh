@@ -37,7 +37,7 @@ if [ ! -d src/meta-virtualization ] ; then
     git clone -b master http://git.yoctoproject.org/git/meta-virtualization src/meta-virtualization
 fi
 if [ ! -d src/meta-qt5 ] ; then
-    git clone -b jethro https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
+    git clone -b fido https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
 
 case ${1} in
