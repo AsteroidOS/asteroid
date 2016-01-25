@@ -33,9 +33,6 @@ fi
 if [ ! -d src/meta-smartphone ] ; then
     git clone -b jethro https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
 fi
-if [ ! -d src/meta-virtualization ] ; then
-    git clone -b master http://git.yoctoproject.org/git/meta-virtualization src/meta-virtualization
-fi
 if [ ! -d src/meta-qt5 ] ; then
     git clone -b jethro https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
@@ -96,14 +93,12 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-qt5 \\
   $ROOTDIR/src/oe-core/meta \\
   $ROOTDIR/src/meta-asteroid \\
-  $ROOTDIR/src/meta-virtualization \\
   $ROOTDIR/src/meta-openembedded/meta-oe \\
   $ROOTDIR/src/meta-openembedded/meta-ruby \\
   $ROOTDIR/src/meta-openembedded/meta-xfce \\
   $ROOTDIR/src/meta-openembedded/meta-gnome \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
-  $ROOTDIR/src/meta-openembedded/meta-networking \\
   $ROOTDIR/src/meta-openembedded/meta-filesystems \\
 EOF
     case ${1} in
