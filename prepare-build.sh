@@ -38,6 +38,11 @@ if [ ! -d src/meta-qt5 ] ; then
 fi
 
 case ${1} in
+    bass)
+        if [ ! -d src/meta-bass-hybris ] ; then
+            git clone https://github.com/AsteroidOS/meta-bass-hybris src/meta-bass-hybris
+        fi
+        ;;
     *)
         if [ ! -d src/meta-dory-hybris ] ; then
             git clone https://github.com/AsteroidOS/meta-dory-hybris src/meta-dory-hybris
@@ -53,6 +58,11 @@ esac
 # Create local.conf and bblayers.conf
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
     case ${1} in
+        bass)
+            cat > $ROOTDIR/build/conf/local.conf << EOF
+MACHINE ??= "bass"
+EOF
+            ;;
         *)
             cat > $ROOTDIR/build/conf/local.conf << EOF
 MACHINE ??= "dory"
@@ -102,6 +112,12 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-openembedded/meta-filesystems \\
 EOF
     case ${1} in
+        bass)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-bass-hybris \\
+  "
+EOF
+            ;;
         *)
             cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-dory-hybris \\
