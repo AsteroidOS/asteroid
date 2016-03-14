@@ -38,6 +38,11 @@ if [ ! -d src/meta-qt5 ] ; then
 fi
 
 case ${1} in
+    tetra)
+        if [ ! -d src/meta-tetra-hybris ] ; then
+            git clone https://github.com/AsteroidOS/meta-tetra-hybris src/meta-tetra-hybris
+        fi
+        ;;
     bass)
         if [ ! -d src/meta-bass-hybris ] ; then
             git clone https://github.com/AsteroidOS/meta-bass-hybris src/meta-bass-hybris
@@ -58,6 +63,11 @@ esac
 # Create local.conf and bblayers.conf
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
     case ${1} in
+        tetra)
+            cat > $ROOTDIR/build/conf/local.conf << EOF
+MACHINE ??= "tetra"
+EOF
+            ;;
         bass)
             cat > $ROOTDIR/build/conf/local.conf << EOF
 MACHINE ??= "bass"
@@ -112,6 +122,12 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-openembedded/meta-filesystems \\
 EOF
     case ${1} in
+        tetra)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-tetra-hybris \\
+  "
+EOF
+            ;;
         bass)
             cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-bass-hybris \\
