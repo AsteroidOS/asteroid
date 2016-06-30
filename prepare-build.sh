@@ -31,10 +31,10 @@ if [ ! -d src/meta-asteroid ] ; then
     git clone https://github.com/AsteroidOS/meta-asteroid src/meta-asteroid
 fi
 if [ ! -d src/meta-smartphone ] ; then
-    git clone -b jethro https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
+    git clone -b krogoth https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
 fi
 if [ ! -d src/meta-qt5 ] ; then
-    git clone -b jethro https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
+    git clone -b krogoth https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
 
 case ${1} in
