@@ -38,6 +38,11 @@ if [ ! -d src/meta-qt5 ] ; then
 fi
 
 case ${1} in
+    sparrow)
+        if [ ! -d src/meta-tetra-hybris ] ; then
+            git clone https://github.com/AsteroidOS/meta-sparrow-hybris src/meta-sparrow-hybris
+        fi
+        ;;
     tetra)
         if [ ! -d src/meta-tetra-hybris ] ; then
             git clone https://github.com/AsteroidOS/meta-tetra-hybris src/meta-tetra-hybris
@@ -63,6 +68,11 @@ esac
 # Create local.conf and bblayers.conf
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
     case ${1} in
+        sparrow)
+            cat > $ROOTDIR/build/conf/local.conf << EOF
+MACHINE ??= "sparrow"
+EOF
+            ;;
         tetra)
             cat > $ROOTDIR/build/conf/local.conf << EOF
 MACHINE ??= "tetra"
@@ -122,6 +132,12 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-openembedded/meta-filesystems \\
 EOF
     case ${1} in
+        sparrow)
+            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
+  $ROOTDIR/src/meta-sparrow-hybris \\
+  "
+EOF
+            ;;
         tetra)
             cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-tetra-hybris \\
