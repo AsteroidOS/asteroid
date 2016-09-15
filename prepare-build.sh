@@ -15,9 +15,16 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 ROOTDIR=`pwd`
-
-# Fetch sources
 mkdir -p src build/conf
+
+if [ "$#" -gt 0 ]
+then
+    export MACHINE=${1}
+else
+    export MACHINE=dory
+fi
+
+# Fetch all the needed layers in src/
 if [ ! -d src/oe-core ] ; then
     git clone -b krogoth git://git.openembedded.org/openembedded-core src/oe-core
 fi
@@ -36,67 +43,24 @@ fi
 if [ ! -d src/meta-qt5 ] ; then
     git clone -b krogoth https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
+if [ ! -d src/meta-sparrow-hybris ] ; then
+    git clone https://github.com/AsteroidOS/meta-sparrow-hybris src/meta-sparrow-hybris
+fi
+if [ ! -d src/meta-tetra-hybris ] ; then
+    git clone https://github.com/AsteroidOS/meta-tetra-hybris src/meta-tetra-hybris
+fi
+if [ ! -d src/meta-bass-hybris ] ; then
+    git clone https://github.com/AsteroidOS/meta-bass-hybris src/meta-bass-hybris
+fi
+if [ ! -d src/meta-dory-hybris ] ; then
+    git clone https://github.com/AsteroidOS/meta-dory-hybris src/meta-dory-hybris
+fi
 
-case ${1} in
-    sparrow)
-        if [ ! -d src/meta-tetra-hybris ] ; then
-            git clone https://github.com/AsteroidOS/meta-sparrow-hybris src/meta-sparrow-hybris
-        fi
-        ;;
-    tetra)
-        if [ ! -d src/meta-tetra-hybris ] ; then
-            git clone https://github.com/AsteroidOS/meta-tetra-hybris src/meta-tetra-hybris
-        fi
-        ;;
-    bass)
-        if [ ! -d src/meta-bass-hybris ] ; then
-            git clone https://github.com/AsteroidOS/meta-bass-hybris src/meta-bass-hybris
-        fi
-        ;;
-    *)
-        if [ ! -d src/meta-dory-hybris ] ; then
-            git clone https://github.com/AsteroidOS/meta-dory-hybris src/meta-dory-hybris
-        fi
-        ;;
-#    newWatch)
-#        if [ ! -d src/meta-newWatch-hybris ] ; then
-#            git clone https://github.com/AsteroidOS/meta-newWatch-hybris src/meta-newWatch-hybris
-#        fi
-#        ;;
-esac
-
-# Create local.conf and bblayers.conf
+# Create local.conf and bblayers.conf on first run
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
-    case ${1} in
-        sparrow)
-            cat > $ROOTDIR/build/conf/local.conf << EOF
-MACHINE ??= "sparrow"
-EOF
-            ;;
-        tetra)
-            cat > $ROOTDIR/build/conf/local.conf << EOF
-MACHINE ??= "tetra"
-EOF
-            ;;
-        bass)
-            cat > $ROOTDIR/build/conf/local.conf << EOF
-MACHINE ??= "bass"
-EOF
-            ;;
-        *)
-            cat > $ROOTDIR/build/conf/local.conf << EOF
-MACHINE ??= "dory"
-EOF
-            ;;
-#        newWatch)
-#            cat > $ROOTDIR/build/conf/local.conf << EOF
-#MACHINE ??= "newWatch"
-#EOF
-#            ;;
-    esac
     cat >> $ROOTDIR/build/conf/local.conf << EOF
-DISTRO ?= "asteroid"
-PACKAGE_CLASSES ?= "package_ipk"
+DISTRO = "asteroid"
+PACKAGE_CLASSES = "package_ipk"
 
 CONF_VERSION = "1"
 BB_DISKMON_DIRS = "\\
@@ -107,7 +71,7 @@ BB_DISKMON_DIRS = "\\
     ABORT,\${DL_DIR},100M,1K \\
     ABORT,\${SSTATE_DIR},100M,1K" 
 PATCHRESOLVE = "noop"
-USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+USER_CLASSES = "buildstats image-mklibs image-prelink"
 EXTRA_IMAGE_FEATURES = "debug-tweaks"
 EOF
 fi
@@ -117,9 +81,9 @@ if [ ! -e $ROOTDIR/build/conf/bblayers.conf ]; then
 LCONF_VERSION = "6"
 
 BBPATH = "\${TOPDIR}"
-BBFILES ?= ""
+BBFILES = ""
 
-BBLAYERS ?= " \\
+BBLAYERS = " \\
   $ROOTDIR/src/meta-qt5 \\
   $ROOTDIR/src/oe-core/meta \\
   $ROOTDIR/src/meta-asteroid \\
@@ -130,39 +94,12 @@ BBLAYERS ?= " \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
   $ROOTDIR/src/meta-openembedded/meta-filesystems \\
-EOF
-    case ${1} in
-        sparrow)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-sparrow-hybris \\
-  "
-EOF
-            ;;
-        tetra)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-tetra-hybris \\
-  "
-EOF
-            ;;
-        bass)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-bass-hybris \\
-  "
-EOF
-            ;;
-        *)
-            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
   $ROOTDIR/src/meta-dory-hybris \\
   "
 EOF
-            ;;
-#        newWatch)
-#            cat >> $ROOTDIR/build/conf/bblayers.conf << EOF
-#  $ROOTDIR/src/meta-newWatch-hybris \\
-#  "
-#EOF
-#            ;;
-    esac
 fi
 
 # Init build env
