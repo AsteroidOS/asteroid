@@ -73,6 +73,8 @@ BB_DISKMON_DIRS = "\\
 PATCHRESOLVE = "noop"
 USER_CLASSES = "buildstats image-mklibs image-prelink"
 EXTRA_IMAGE_FEATURES = "debug-tweaks"
+
+QT_GIT_PROTOCOL = "https"
 EOF
 fi
 
