@@ -26,19 +26,19 @@ fi
 
 # Fetch all the needed layers in src/
 if [ ! -d src/oe-core ] ; then
-    git clone -b krogoth git://git.openembedded.org/openembedded-core src/oe-core
+    git clone -b morty git://git.openembedded.org/openembedded-core src/oe-core
 fi
 if [ ! -d src/oe-core/bitbake ] ; then
-    git clone -b 1.30 git://git.openembedded.org/bitbake src/oe-core/bitbake
+    git clone -b 1.32 git://git.openembedded.org/bitbake src/oe-core/bitbake
 fi
 if [ ! -d src/meta-openembedded ] ; then
-    git clone -b krogoth https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
+    git clone -b morty https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
 fi
 if [ ! -d src/meta-asteroid ] ; then
     git clone https://github.com/AsteroidOS/meta-asteroid src/meta-asteroid
 fi
 if [ ! -d src/meta-smartphone ] ; then
-    git clone -b krogoth https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
+    git clone -b morty https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
 fi
 if [ ! -d src/meta-qt5 ] ; then
     git clone -b krogoth https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
@@ -80,7 +80,7 @@ fi
 
 if [ ! -e $ROOTDIR/build/conf/bblayers.conf ]; then
     cat > $ROOTDIR/build/conf/bblayers.conf << EOF
-LCONF_VERSION = "6"
+LCONF_VERSION = "7"
 
 BBPATH = "\${TOPDIR}"
 BBFILES = ""
