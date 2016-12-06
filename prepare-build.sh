@@ -35,7 +35,7 @@ if [ ! -d src/meta-openembedded ] ; then
     git clone -b morty https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
 fi
 if [ ! -d src/meta-asteroid ] ; then
-    git clone https://github.com/AsteroidOS/meta-asteroid src/meta-asteroid
+    git clone -b 1.0-alpha https://github.com/AsteroidOS/meta-asteroid src/meta-asteroid
 fi
 if [ ! -d src/meta-smartphone ] ; then
     git clone -b morty https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
@@ -44,16 +44,16 @@ if [ ! -d src/meta-qt5 ] ; then
     git clone -b krogoth https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
 if [ ! -d src/meta-sparrow-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-sparrow-hybris src/meta-sparrow-hybris
+    git clone -b 1.0-alpha https://github.com/AsteroidOS/meta-sparrow-hybris src/meta-sparrow-hybris
 fi
 if [ ! -d src/meta-tetra-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-tetra-hybris src/meta-tetra-hybris
+    git clone -b 1.0-alpha https://github.com/AsteroidOS/meta-tetra-hybris src/meta-tetra-hybris
 fi
 if [ ! -d src/meta-bass-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-bass-hybris src/meta-bass-hybris
+    git clone -b 1.0-alpha https://github.com/AsteroidOS/meta-bass-hybris src/meta-bass-hybris
 fi
 if [ ! -d src/meta-dory-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-dory-hybris src/meta-dory-hybris
+    git clone -b 1.0-alpha https://github.com/AsteroidOS/meta-dory-hybris src/meta-dory-hybris
 fi
 
 # Create local.conf and bblayers.conf on first run
