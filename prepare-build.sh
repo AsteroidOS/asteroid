@@ -55,6 +55,9 @@ fi
 if [ ! -d src/meta-dory-hybris ] ; then
     git clone https://github.com/AsteroidOS/meta-dory-hybris src/meta-dory-hybris
 fi
+if [ ! -d src/meta-sturgeon-hybris ] ; then
+    git clone https://github.com/AsteroidOS/meta-sturgeon-hybris src/meta-sturgeon-hybris
+fi
 
 # Create local.conf and bblayers.conf on first run
 if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
@@ -100,6 +103,7 @@ BBLAYERS = " \\
   $ROOTDIR/src/meta-tetra-hybris \\
   $ROOTDIR/src/meta-bass-hybris \\
   $ROOTDIR/src/meta-dory-hybris \\
+  $ROOTDIR/src/meta-sturgeon-hybris \\
   "
 EOF
 fi
