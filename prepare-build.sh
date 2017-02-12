@@ -43,6 +43,9 @@ fi
 if [ ! -d src/meta-qt5 ] ; then
     git clone -b krogoth https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
+if [ ! -d src/meta-anthias-hybris ] ; then
+    git clone https://github.com/AsteroidOS/meta-anthias-hybris src/meta-anthias-hybris
+fi
 if [ ! -d src/meta-sparrow-hybris ] ; then
     git clone https://github.com/AsteroidOS/meta-sparrow-hybris src/meta-sparrow-hybris
 fi
@@ -99,6 +102,7 @@ BBLAYERS = " \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
   $ROOTDIR/src/meta-openembedded/meta-filesystems \\
+  $ROOTDIR/src/meta-anthias-hybris \\
   $ROOTDIR/src/meta-sparrow-hybris \\
   $ROOTDIR/src/meta-tetra-hybris \\
   $ROOTDIR/src/meta-bass-hybris \\
