@@ -6,7 +6,7 @@ AsteroidOS build system
 You can fully build a flashable image from source with the following commands, but be careful it will take several hours:
 
     . ./prepare-build.sh
-    bitbake asteroid-image
+    bitbake asteroid-image <your machine id, e.g., dory>
 
 For more information report to [the documentation](https://asteroidos.org/wiki/documentation/).
 
