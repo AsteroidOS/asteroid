@@ -49,6 +49,9 @@ fi
 if [ ! -d src/meta-sparrow-hybris ] ; then
     git clone https://github.com/AsteroidOS/meta-sparrow-hybris src/meta-sparrow-hybris
 fi
+if [ ! -d src/meta-sprat-hybris ] ; then
+    git clone https://github.com/AsteroidOS/meta-sprat-hybris src/meta-sprat-hybris
+fi
 if [ ! -d src/meta-tetra-hybris ] ; then
     git clone https://github.com/AsteroidOS/meta-tetra-hybris src/meta-tetra-hybris
 fi
@@ -107,6 +110,7 @@ BBLAYERS = " \\
   $ROOTDIR/src/meta-openembedded/meta-filesystems \\
   $ROOTDIR/src/meta-anthias-hybris \\
   $ROOTDIR/src/meta-sparrow-hybris \\
+  $ROOTDIR/src/meta-sprat-hybris \\
   $ROOTDIR/src/meta-tetra-hybris \\
   $ROOTDIR/src/meta-bass-hybris \\
   $ROOTDIR/src/meta-dory-hybris \\
