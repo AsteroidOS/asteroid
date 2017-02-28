@@ -41,7 +41,7 @@ if [ ! -d src/meta-smartphone ] ; then
     git clone -b morty https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
 fi
 if [ ! -d src/meta-qt5 ] ; then
-    git clone -b krogoth https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
+    git clone -b master https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
 fi
 if [ ! -d src/meta-anthias-hybris ] ; then
     git clone https://github.com/AsteroidOS/meta-anthias-hybris src/meta-anthias-hybris
