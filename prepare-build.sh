@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Copyright (C) 2015 Florent Revest <revestflo@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,63 +14,62 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-ROOTDIR=`pwd`
-mkdir -p src build/conf
+function pull_dir {
+    if [ -d $1/.git/ ] ; then
+        echo -e "\e[32mPulling $1\e[39m"
+        [ "$1" != "." ]   && pushd $1 > /dev/null
+        git pull --rebase
+        [ $status -ne 0 ] && echo -e "\e[91mError pulling $1\e[39m"
+        [ "$1" != "." ]   && popd > /dev/null
+    fi
+}
 
-if [ "$#" -gt 0 ]
-then
-    export MACHINE=${1}
+function clone_dir {
+    if [ ! -d $1 ] ; then
+        echo -e "\e[32mCloning branch $3 of $2 in $1\e[39m"
+        git clone -b $3 $2 $1
+        [ $status -ne 0 ] &&  echo -e "\e[91mError cloning $1\e[39m"
+    fi
+}
+
+# Update layers in src/
+if [[ "$1" == "update" ]]; then
+    pull_dir .
+    for d in src/*/ ; do
+        pull_dir $d
+    done
+    pull_dir src/oe-core/bitbake
+# Prepare bitbake
 else
-    export MACHINE=dory
-fi
+    ROOTDIR=`pwd`
+    mkdir -p src build/conf
 
-# Fetch all the needed layers in src/
-if [ ! -d src/oe-core ] ; then
-    git clone -b morty git://git.openembedded.org/openembedded-core src/oe-core
-fi
-if [ ! -d src/oe-core/bitbake ] ; then
-    git clone -b 1.32 git://git.openembedded.org/bitbake src/oe-core/bitbake
-fi
-if [ ! -d src/meta-openembedded ] ; then
-    git clone -b morty https://github.com/openembedded/meta-openembedded.git src/meta-openembedded
-fi
-if [ ! -d src/meta-asteroid ] ; then
-    git clone https://github.com/AsteroidOS/meta-asteroid src/meta-asteroid
-fi
-if [ ! -d src/meta-smartphone ] ; then
-    git clone -b morty https://github.com/shr-distribution/meta-smartphone src/meta-smartphone
-fi
-if [ ! -d src/meta-qt5 ] ; then
-    git clone -b master https://github.com/meta-qt5/meta-qt5.git src/meta-qt5
-fi
-if [ ! -d src/meta-anthias-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-anthias-hybris src/meta-anthias-hybris
-fi
-if [ ! -d src/meta-sparrow-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-sparrow-hybris src/meta-sparrow-hybris
-fi
-if [ ! -d src/meta-sprat-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-sprat-hybris src/meta-sprat-hybris
-fi
-if [ ! -d src/meta-tetra-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-tetra-hybris src/meta-tetra-hybris
-fi
-if [ ! -d src/meta-bass-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-bass-hybris src/meta-bass-hybris
-fi
-if [ ! -d src/meta-dory-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-dory-hybris src/meta-dory-hybris
-fi
-if [ ! -d src/meta-sturgeon-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-sturgeon-hybris src/meta-sturgeon-hybris
-fi
-if [ ! -d src/meta-swift-hybris ] ; then
-    git clone https://github.com/AsteroidOS/meta-swift-hybris src/meta-swift-hybris
-fi
+    if [ "$#" -gt 0 ]; then
+        export MACHINE=${1}
+    else
+        export MACHINE=dory
+    fi
 
-# Create local.conf and bblayers.conf on first run
-if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
-    cat >> $ROOTDIR/build/conf/local.conf << EOF
+    # Fetch all the needed layers in src/
+    clone_dir src/oe-core              https://github.com/openembedded/openembedded-core.git morty
+    clone_dir src/oe-core/bitbake      https://github.com/openembedded/bitbake.git           1.32
+    clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git morty
+    clone_dir src/meta-qt5             https://github.com/meta-qt5/meta-qt5.git              master
+    clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   morty
+    clone_dir src/meta-asteroid        https://github.com/AsteroidOS/meta-asteroid           master
+    clone_dir src/meta-anthias-hybris  https://github.com/AsteroidOS/meta-anthias-hybris     master
+    clone_dir src/meta-bass-hybris     https://github.com/AsteroidOS/meta-bass-hybris        master
+    clone_dir src/meta-dory-hybris     https://github.com/AsteroidOS/meta-dory-hybris        master
+    clone_dir src/meta-sparrow-hybris  https://github.com/AsteroidOS/meta-sparrow-hybris     master
+    clone_dir src/meta-sprat-hybris    https://github.com/AsteroidOS/meta-sprat-hybris       master
+    clone_dir src/meta-sturgeon-hybris https://github.com/AsteroidOS/meta-sturgeon-hybris    master
+    clone_dir src/meta-swift-hybris    https://github.com/AsteroidOS/meta-swift-hybris       master
+    clone_dir src/meta-tetra-hybris    https://github.com/AsteroidOS/meta-tetra-hybris       master
+
+    # Create local.conf and bblayers.conf on first run
+    if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
+        echo -e "\e[32mWriting build/conf/local.conf\e[39m"
+        cat >> $ROOTDIR/build/conf/local.conf << EOF
 DISTRO = "asteroid"
 PACKAGE_CLASSES = "package_ipk"
 
@@ -88,10 +87,11 @@ EXTRA_IMAGE_FEATURES = "debug-tweaks"
 
 QT_GIT_PROTOCOL = "https"
 EOF
-fi
+    fi
 
-if [ ! -e $ROOTDIR/build/conf/bblayers.conf ]; then
-    cat > $ROOTDIR/build/conf/bblayers.conf << EOF
+    if [ ! -e $ROOTDIR/build/conf/bblayers.conf ]; then
+        echo -e "\e[32mWriting build/conf/bblayers.conf\e[39m"
+        cat > $ROOTDIR/build/conf/bblayers.conf << EOF
 LCONF_VERSION = "7"
 
 BBPATH = "\${TOPDIR}"
@@ -118,13 +118,13 @@ BBLAYERS = " \\
   $ROOTDIR/src/meta-swift-hybris \\
   "
 EOF
-fi
+    fi
 
-# Init build env
-cd src/oe-core
-. ./oe-init-build-env $ROOTDIR/build > /dev/null
+    # Init build env
+    cd src/oe-core
+    . ./oe-init-build-env $ROOTDIR/build > /dev/null
 
-cat << EOF
+    cat << EOF
 Welcome to the Asteroid compilation script.
 
 If you meet any issue you can report it to the project's github page:
@@ -135,3 +135,4 @@ You can now run the following command to get started with the compilation:
 
 Have fun!
 EOF
+fi
