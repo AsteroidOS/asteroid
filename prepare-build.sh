@@ -65,6 +65,7 @@ else
     clone_dir src/meta-sturgeon-hybris https://github.com/AsteroidOS/meta-sturgeon-hybris    master
     clone_dir src/meta-swift-hybris    https://github.com/AsteroidOS/meta-swift-hybris       master
     clone_dir src/meta-tetra-hybris    https://github.com/AsteroidOS/meta-tetra-hybris       master
+    clone_dir src/meta-wren-hybris     https://github.com/AsteroidOS/meta-wren-hybris        master
 
     # Create local.conf and bblayers.conf on first run
     if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
@@ -116,6 +117,7 @@ BBLAYERS = " \\
   $ROOTDIR/src/meta-dory-hybris \\
   $ROOTDIR/src/meta-sturgeon-hybris \\
   $ROOTDIR/src/meta-swift-hybris \\
+  $ROOTDIR/src/meta-wren-hybris \\
   "
 EOF
     fi
