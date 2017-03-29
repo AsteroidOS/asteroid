@@ -19,7 +19,7 @@ function pull_dir {
         echo -e "\e[32mPulling $1\e[39m"
         [ "$1" != "." ]   && pushd $1 > /dev/null
         git pull --rebase
-        [ $status -ne 0 ] && echo -e "\e[91mError pulling $1\e[39m"
+        [ $? -ne 0 ] && echo -e "\e[91mError pulling $1\e[39m"
         [ "$1" != "." ]   && popd > /dev/null
     fi
 }
@@ -28,7 +28,7 @@ function clone_dir {
     if [ ! -d $1 ] ; then
         echo -e "\e[32mCloning branch $3 of $2 in $1\e[39m"
         git clone -b $3 $2 $1
-        [ $status -ne 0 ] &&  echo -e "\e[91mError cloning $1\e[39m"
+        [ $? -ne 0 ] &&  echo -e "\e[91mError cloning $1\e[39m"
     fi
 }
 
