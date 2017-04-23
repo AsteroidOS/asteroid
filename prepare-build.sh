@@ -116,6 +116,7 @@ BBLAYERS = " \\
   $ROOTDIR/src/meta-tetra-hybris \\
   $ROOTDIR/src/meta-bass-hybris \\
   $ROOTDIR/src/meta-dory-hybris \\
+  $ROOTDIR/src/meta-lenok-hybris \\
   $ROOTDIR/src/meta-sturgeon-hybris \\
   $ROOTDIR/src/meta-swift-hybris \\
   $ROOTDIR/src/meta-wren-hybris \\
