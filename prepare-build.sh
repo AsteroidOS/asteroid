@@ -60,6 +60,7 @@ else
     clone_dir src/meta-anthias-hybris  https://github.com/AsteroidOS/meta-anthias-hybris     master
     clone_dir src/meta-bass-hybris     https://github.com/AsteroidOS/meta-bass-hybris        master
     clone_dir src/meta-dory-hybris     https://github.com/AsteroidOS/meta-dory-hybris        master
+    clone_dir src/meta-lenok-hybris    https://github.com/AsteroidOS/meta-lenok-hybris       master
     clone_dir src/meta-sparrow-hybris  https://github.com/AsteroidOS/meta-sparrow-hybris     master
     clone_dir src/meta-sprat-hybris    https://github.com/AsteroidOS/meta-sprat-hybris       master
     clone_dir src/meta-sturgeon-hybris https://github.com/AsteroidOS/meta-sturgeon-hybris    master
