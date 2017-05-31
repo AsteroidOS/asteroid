@@ -39,6 +39,12 @@ if [[ "$1" == "update" ]]; then
         pull_dir $d
     done
     pull_dir src/oe-core/bitbake
+elif [[ "$1" == "git-"* ]]; then
+    gitcmd=${1:4} # drop git-
+    shift
+    for d in . src/*/ ; do
+        (cd $d && pwd && git $gitcmd "$@")
+    done
 # Prepare bitbake
 else
     ROOTDIR=`pwd`
