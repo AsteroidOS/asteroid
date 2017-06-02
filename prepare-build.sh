@@ -54,7 +54,7 @@ else
     clone_dir src/oe-core              https://github.com/openembedded/openembedded-core.git pyro
     clone_dir src/oe-core/bitbake      https://github.com/openembedded/bitbake.git           1.34
     clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git pyro
-    clone_dir src/meta-qt5             https://github.com/meta-qt5/meta-qt5.git              master
+    clone_dir src/meta-qt5             https://code.qt.io/yocto/meta-qt5.git                 5.9
     clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   pyro
     clone_dir src/meta-asteroid        https://github.com/AsteroidOS/meta-asteroid           master
     clone_dir src/meta-anthias-hybris  https://github.com/AsteroidOS/meta-anthias-hybris     master
