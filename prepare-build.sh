@@ -39,6 +39,16 @@ if [[ "$1" == "update" ]]; then
         pull_dir $d
     done
     pull_dir src/oe-core/bitbake
+elif [[ "$1" == "git-"* ]]; then
+    base=$(dirname $0)
+    gitcmd=${1:4} # drop git-
+    shift
+    for d in $base $base/src/* $base/src/oe-core/bitbake; do
+        if [ $(git -C $d $gitcmd "$@" | wc -c) -ne 0 ]; then
+            echo -e "\e[35mgit -C $d $gitcmd $@ \e[39m"
+            git -C $d $gitcmd "$@"
+        fi
+    done
 # Prepare bitbake
 else
     ROOTDIR=`pwd`
