@@ -117,6 +117,7 @@ BBLAYERS = " \\
   $ROOTDIR/src/meta-openembedded/meta-ruby \\
   $ROOTDIR/src/meta-openembedded/meta-xfce \\
   $ROOTDIR/src/meta-openembedded/meta-gnome \\
+  $ROOTDIR/src/meta-openembedded/meta-networking \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
   $ROOTDIR/src/meta-openembedded/meta-python \\
   $ROOTDIR/src/meta-openembedded/meta-filesystems \\
