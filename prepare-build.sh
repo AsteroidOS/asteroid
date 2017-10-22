@@ -61,11 +61,11 @@ else
     fi
 
     # Fetch all the needed layers in src/
-    clone_dir src/oe-core              https://github.com/openembedded/openembedded-core.git pyro
-    clone_dir src/oe-core/bitbake      https://github.com/openembedded/bitbake.git           1.34
-    clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git pyro
+    clone_dir src/oe-core              https://github.com/openembedded/openembedded-core.git rocko
+    clone_dir src/oe-core/bitbake      https://github.com/openembedded/bitbake.git           1.36
+    clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git rocko
     clone_dir src/meta-qt5             https://code.qt.io/yocto/meta-qt5.git                 5.9
-    clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   pyro
+    clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   rocko
     clone_dir src/meta-asteroid        https://github.com/AsteroidOS/meta-asteroid           master
     clone_dir src/meta-anthias-hybris  https://github.com/AsteroidOS/meta-anthias-hybris     master
     clone_dir src/meta-bass-hybris     https://github.com/AsteroidOS/meta-bass-hybris        master
@@ -114,8 +114,7 @@ BBLAYERS = " \\
   $ROOTDIR/src/oe-core/meta \\
   $ROOTDIR/src/meta-asteroid \\
   $ROOTDIR/src/meta-openembedded/meta-oe \\
-  $ROOTDIR/src/meta-openembedded/meta-ruby \\
-  $ROOTDIR/src/meta-openembedded/meta-xfce \\
+  $ROOTDIR/src/meta-openembedded/meta-multimedia \\
   $ROOTDIR/src/meta-openembedded/meta-gnome \\
   $ROOTDIR/src/meta-openembedded/meta-networking \\
   $ROOTDIR/src/meta-smartphone/meta-android \\
