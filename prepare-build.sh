@@ -29,6 +29,12 @@ function clone_dir {
         echo -e "\e[32mCloning branch $3 of $2 in $1\e[39m"
         git clone -b $3 $2 $1
         [ $? -ne 0 ] &&  echo -e "\e[91mError cloning $1\e[39m"
+        if [ $# -eq 4 ]
+        then
+            pushd $1
+            git checkout $4
+            popd
+        fi
     fi
 }
 
