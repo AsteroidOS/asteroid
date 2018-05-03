@@ -67,21 +67,21 @@ else
     fi
 
     # Fetch all the needed layers in src/
-    clone_dir src/oe-core              https://github.com/openembedded/openembedded-core.git rocko
-    clone_dir src/oe-core/bitbake      https://github.com/openembedded/bitbake.git           1.36
-    clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git rocko
+    clone_dir src/oe-core              https://github.com/openembedded/openembedded-core.git rocko  d20917f3ce9ac45fb9562d1cabf7ddc212b1d07a
+    clone_dir src/oe-core/bitbake      https://github.com/openembedded/bitbake.git           1.36   223a0f68530571d2280f526bddbc718fa803a3dc
+    clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git rocko  dacfa2b1920e285531bec55cd2f08743390aaf57
     clone_dir src/meta-qt5             https://code.qt.io/yocto/meta-qt5.git                 5.10   v5.10.0
-    clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   rocko
-    clone_dir src/meta-asteroid        https://github.com/AsteroidOS/meta-asteroid           master
-    clone_dir src/meta-anthias-hybris  https://github.com/AsteroidOS/meta-anthias-hybris     master
-    clone_dir src/meta-bass-hybris     https://github.com/AsteroidOS/meta-bass-hybris        master
-    clone_dir src/meta-dory-hybris     https://github.com/AsteroidOS/meta-dory-hybris        master
-    clone_dir src/meta-lenok-hybris    https://github.com/AsteroidOS/meta-lenok-hybris       master
-    clone_dir src/meta-sparrow-hybris  https://github.com/AsteroidOS/meta-sparrow-hybris     master
-    clone_dir src/meta-sprat-hybris    https://github.com/AsteroidOS/meta-sprat-hybris       master
-    clone_dir src/meta-swift-hybris    https://github.com/AsteroidOS/meta-swift-hybris       master
-    clone_dir src/meta-tetra-hybris    https://github.com/AsteroidOS/meta-tetra-hybris       master
-    clone_dir src/meta-wren-hybris     https://github.com/AsteroidOS/meta-wren-hybris        master
+    clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   rocko  a5aa51964420013149da13decabd195c58e7871b
+    clone_dir src/meta-asteroid        https://github.com/AsteroidOS/meta-asteroid           1.0    e3bdc1d39d94c5f0303f5b70e48aead32676ac0e
+    clone_dir src/meta-anthias-hybris  https://github.com/AsteroidOS/meta-anthias-hybris     1.0    7e45263168efcb1696732b70204bd4fc6113c8d6
+    clone_dir src/meta-bass-hybris     https://github.com/AsteroidOS/meta-bass-hybris        1.0    248c7d5431ee2b540edbd5828ee125947f6b0de5
+    clone_dir src/meta-dory-hybris     https://github.com/AsteroidOS/meta-dory-hybris        1.0    8d3f83ae8ea534c2f01151c1149272b64369f776
+    clone_dir src/meta-lenok-hybris    https://github.com/AsteroidOS/meta-lenok-hybris       1.0    462f80f0c45c8fdb4c37f943fbe8e3145324f8b8
+    clone_dir src/meta-sparrow-hybris  https://github.com/AsteroidOS/meta-sparrow-hybris     1.0    55f5c9daf3e8e0797d9f49312e71e245f010fbe6
+    clone_dir src/meta-sprat-hybris    https://github.com/AsteroidOS/meta-sprat-hybris       1.0    e64adbc6db63f7f1a90f0bdfaf8db123c3ac4a02
+    clone_dir src/meta-swift-hybris    https://github.com/AsteroidOS/meta-swift-hybris       1.0    afd2e55dd62ef154e07afe66ee49418b51338314
+    clone_dir src/meta-tetra-hybris    https://github.com/AsteroidOS/meta-tetra-hybris       1.0    014b3436b930831dfaa5dd37510ebe7ac4944325
+    clone_dir src/meta-wren-hybris     https://github.com/AsteroidOS/meta-wren-hybris        1.0    4c1f36d23dde471d31f232fc9e1a23859e388380
 
     # Create local.conf and bblayers.conf on first run
     if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
