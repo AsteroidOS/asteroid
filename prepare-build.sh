@@ -72,7 +72,7 @@ else
     clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git rocko  dacfa2b1920e285531bec55cd2f08743390aaf57
     clone_dir src/meta-qt5             https://code.qt.io/yocto/meta-qt5.git                 5.10   v5.10.0
     clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   rocko  a5aa51964420013149da13decabd195c58e7871b
-    clone_dir src/meta-asteroid        https://github.com/AsteroidOS/meta-asteroid           1.0    8f30b00478f863ea9b0c6c87c5806a032322256a
+    clone_dir src/meta-asteroid        https://github.com/AsteroidOS/meta-asteroid           1.0    767fed9476cd9e5e886f6d3b604649dee4b5839a
     clone_dir src/meta-anthias-hybris  https://github.com/AsteroidOS/meta-anthias-hybris     1.0    7e45263168efcb1696732b70204bd4fc6113c8d6
     clone_dir src/meta-bass-hybris     https://github.com/AsteroidOS/meta-bass-hybris        1.0    86e1f91a9581f5481febc1f0cf84061c67aaaca1
     clone_dir src/meta-dory-hybris     https://github.com/AsteroidOS/meta-dory-hybris        1.0    7a3ba57d04cab676b0bb06c9c22623efe340de78
