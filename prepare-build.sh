@@ -57,7 +57,6 @@ elif [[ "$1" == "git-"* ]]; then
     done
 # Prepare bitbake
 else
-    ROOTDIR=`pwd`
     mkdir -p src build/conf
 
     if [ "$#" -gt 0 ]; then
@@ -84,66 +83,45 @@ else
     clone_dir src/meta-wren-hybris     https://github.com/AsteroidOS/meta-wren-hybris        master
 
     # Create local.conf and bblayers.conf on first run
-    if [ ! -e $ROOTDIR/build/conf/local.conf ]; then
+    if [ ! -e build/conf/local.conf ]; then
         echo -e "\e[32mWriting build/conf/local.conf\e[39m"
-        cat >> $ROOTDIR/build/conf/local.conf << EOF
-DISTRO = "asteroid"
-PACKAGE_CLASSES = "package_ipk"
-
-CONF_VERSION = "1"
-BB_DISKMON_DIRS = "\\
-    STOPTASKS,\${TMPDIR},1G,100K \\
-    STOPTASKS,\${DL_DIR},1G,100K \\
-    STOPTASKS,\${SSTATE_DIR},1G,100K \\
-    ABORT,\${TMPDIR},100M,1K \\
-    ABORT,\${DL_DIR},100M,1K \\
-    ABORT,\${SSTATE_DIR},100M,1K" 
-PATCHRESOLVE = "noop"
-USER_CLASSES = "buildstats image-mklibs image-prelink"
-EXTRA_IMAGE_FEATURES = "debug-tweaks"
-
-QT_GIT_PROTOCOL = "https"
-EOF
+        echo 'DISTRO = "asteroid"
+PACKAGE_CLASSES = "package_ipk"' >> build/conf/local.conf
     fi
 
-    if [ ! -e $ROOTDIR/build/conf/bblayers.conf ]; then
+    if [ ! -e build/conf/bblayers.conf ]; then
         echo -e "\e[32mWriting build/conf/bblayers.conf\e[39m"
-        cat > $ROOTDIR/build/conf/bblayers.conf << EOF
-LCONF_VERSION = "7"
+        echo 'BBPATH = "${TOPDIR}"
+SRCDIR = "${@os.path.abspath(os.path.join("${TOPDIR}", "../src/"))}"
 
-BBPATH = "\${TOPDIR}"
-BBFILES = ""
-
-BBLAYERS = " \\
-  $ROOTDIR/src/meta-qt5 \\
-  $ROOTDIR/src/oe-core/meta \\
-  $ROOTDIR/src/meta-asteroid \\
-  $ROOTDIR/src/meta-openembedded/meta-oe \\
-  $ROOTDIR/src/meta-openembedded/meta-multimedia \\
-  $ROOTDIR/src/meta-openembedded/meta-gnome \\
-  $ROOTDIR/src/meta-openembedded/meta-networking \\
-  $ROOTDIR/src/meta-smartphone/meta-android \\
-  $ROOTDIR/src/meta-openembedded/meta-python \\
-  $ROOTDIR/src/meta-openembedded/meta-filesystems \\
-  $ROOTDIR/src/meta-anthias-hybris \\
-  $ROOTDIR/src/meta-sparrow-hybris \\
-  $ROOTDIR/src/meta-sprat-hybris \\
-  $ROOTDIR/src/meta-tetra-hybris \\
-  $ROOTDIR/src/meta-bass-hybris \\
-  $ROOTDIR/src/meta-dory-hybris \\
-  $ROOTDIR/src/meta-lenok-hybris \\
-  $ROOTDIR/src/meta-swift-hybris \\
-  $ROOTDIR/src/meta-wren-hybris \\
-  "
-EOF
+BBLAYERS = " \
+  ${SRCDIR}/meta-qt5 \
+  ${SRCDIR}/oe-core/meta \
+  ${SRCDIR}/meta-asteroid \
+  ${SRCDIR}/meta-openembedded/meta-oe \
+  ${SRCDIR}/meta-openembedded/meta-multimedia \
+  ${SRCDIR}/meta-openembedded/meta-gnome \
+  ${SRCDIR}/meta-openembedded/meta-networking \
+  ${SRCDIR}/meta-smartphone/meta-android \
+  ${SRCDIR}/meta-openembedded/meta-python \
+  ${SRCDIR}/meta-openembedded/meta-filesystems \
+  ${SRCDIR}/meta-anthias-hybris \
+  ${SRCDIR}/meta-sparrow-hybris \
+  ${SRCDIR}/meta-sprat-hybris \
+  ${SRCDIR}/meta-tetra-hybris \
+  ${SRCDIR}/meta-bass-hybris \
+  ${SRCDIR}/meta-dory-hybris \
+  ${SRCDIR}/meta-lenok-hybris \
+  ${SRCDIR}/meta-swift-hybris \
+  ${SRCDIR}/meta-wren-hybris \
+  "' > build/conf/bblayers.conf
     fi
 
     # Init build env
     cd src/oe-core
-    . ./oe-init-build-env $ROOTDIR/build > /dev/null
+    . ./oe-init-build-env ../../build > /dev/null
 
-    cat << EOF
-Welcome to the Asteroid compilation script.
+    echo "Welcome to the Asteroid compilation script.
 
 If you meet any issue you can report it to the project's github page:
     https://github.com/AsteroidOS
@@ -151,6 +129,5 @@ If you meet any issue you can report it to the project's github page:
 You can now run the following command to get started with the compilation:
     bitbake asteroid-image
 
-Have fun!
-EOF
+Have fun!"
 fi
