@@ -76,6 +76,7 @@ else
     clone_dir src/meta-bass-hybris     https://github.com/AsteroidOS/meta-bass-hybris        master
     clone_dir src/meta-dory-hybris     https://github.com/AsteroidOS/meta-dory-hybris        master
     clone_dir src/meta-lenok-hybris    https://github.com/AsteroidOS/meta-lenok-hybris       master
+    clone_dir src/meta-mtk6580-hybris  https://github.com/AsteroidOS/meta-mtk6580-hybris     master
     clone_dir src/meta-sparrow-hybris  https://github.com/AsteroidOS/meta-sparrow-hybris     master
     clone_dir src/meta-sprat-hybris    https://github.com/AsteroidOS/meta-sprat-hybris       master
     clone_dir src/meta-swift-hybris    https://github.com/AsteroidOS/meta-swift-hybris       master
