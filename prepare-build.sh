@@ -113,6 +113,7 @@ BBLAYERS = " \
   ${SRCDIR}/meta-bass-hybris \
   ${SRCDIR}/meta-dory-hybris \
   ${SRCDIR}/meta-lenok-hybris \
+  ${SRCDIR}/meta-mtk6580-hybris \
   ${SRCDIR}/meta-swift-hybris \
   ${SRCDIR}/meta-wren-hybris \
   "' > build/conf/bblayers.conf
