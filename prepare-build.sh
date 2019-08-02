@@ -66,11 +66,11 @@ else
     fi
 
     # Fetch all the needed layers in src/
-    clone_dir src/oe-core              https://github.com/openembedded/openembedded-core.git thud
-    clone_dir src/oe-core/bitbake      https://github.com/openembedded/bitbake.git           1.40
-    clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git thud
+    clone_dir src/oe-core              https://github.com/openembedded/openembedded-core.git warrior
+    clone_dir src/oe-core/bitbake      https://github.com/openembedded/bitbake.git           1.42
+    clone_dir src/meta-openembedded    https://github.com/openembedded/meta-openembedded.git warrior
     clone_dir src/meta-qt5             https://github.com/meta-qt5/meta-qt5                  master 8bc72a78b13f2f4c5e1cebebaef9e98b9abbb056
-    clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   thud
+    clone_dir src/meta-smartphone      https://github.com/shr-distribution/meta-smartphone   warrior
     clone_dir src/meta-asteroid        https://github.com/AsteroidOS/meta-asteroid           master
     clone_dir src/meta-anthias-hybris  https://github.com/AsteroidOS/meta-anthias-hybris     master
     clone_dir src/meta-bass-hybris     https://github.com/AsteroidOS/meta-bass-hybris        master
