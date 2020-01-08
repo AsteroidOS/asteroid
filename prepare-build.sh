@@ -16,10 +16,15 @@
 
 function pull_dir {
     if [ -d $1/.git/ ] ; then
-        echo -e "\e[32mPulling $1\e[39m"
         [ "$1" != "." ]   && pushd $1 > /dev/null
-        git pull --rebase
-        [ $? -ne 0 ] && echo -e "\e[91mError pulling $1\e[39m"
+        git symbolic-ref HEAD &> /dev/null
+        if [ $? -eq 0 ] ; then
+            echo -e "\e[32mPulling $1\e[39m"
+            git pull --rebase
+            [ $? -ne 0 ] && echo -e "\e[91mError pulling $1\e[39m"
+        else
+            echo -e "\e[35mSkipping $1\e[39m"
+        fi
         [ "$1" != "." ]   && popd > /dev/null
     fi
 }
