@@ -8,32 +8,38 @@ command_exists() {
     command -v "$@" > /dev/null 2>&1
 }
 
+echoln(){
+    echo ""
+    echo $1
+    echo ""
+}
+
 # Installs docker if it does not exist
-installDocker() {
+checkDocker() {
     if ! command_exists docker
     then
-        echo "Docker not installed, Please install before continuing"
+        echoln "# Docker not installed, Please install before continuing"
         exit
     else
-        echo "Docker installed, skipping"
+        echoln "# Docker installed, skipping"
     fi
 }
 
 # Builds the image, it also updates if the image exists
 buildDockerImage(){
-    echo "Building / Updating docker image"
+    echoln "# Building / Updating docker image"
     sudo docker build --tag asteroidos-toolchain .
 }
 
 # Removes the previous docker container
 rmPreviousContainer(){
-    echo "Deleting previous docker file"
+    echoln "# Deleting previous docker file"
     sudo docker rm -f asteroidos-toolchain
 }
 
 # Executes the build
 executeBuild(){
-    echo "Executing build"
+    echoln "# Executing build for $TARGET"
     sudo docker run --name asteroidos-toolchain -it -v /etc/passwd:/etc/passwd -u $(id -u):$(id -g) -v "$HOME/.gitconfig:/$HOME/.gitconfig" -v "$(pwd):/asteroid" asteroidos-toolchain bash -c "source ./prepare-build.sh $TARGET && bitbake asteroid-image"
 }
 
@@ -45,7 +51,6 @@ isTargetValid() {
             return
         fi
     done
-    
     echo "Target is not valid"
     exit
 }
@@ -78,20 +83,19 @@ printVersion(){
 printHelp(){
     echo "This is the easy docker build script!"
     echo " Arguments:"
-    echo "	-v: Outputs version"
-    echo "	-t: Outputs targets"
-    echo "	-b: Argument for target, place the name of the target afterwards"
-    echo "	-h: Outputs this message"
+    echo "	-v	: Outputs version"
+    echo "	-t	: Outputs targets"
+    echo "	-h	: Outputs this message"
+    echo "	TARGET	: Target from -t, will be validified then built for"
 }
 
 # The main function of this program, does all the main work
 main(){
-    installDocker
+    checkDocker
     buildDockerImage
     rmPreviousContainer
     executeBuild
-    
-    echo "Finished, goodbye"
+    echoln "# Finished, goodbye"
     exit
 }
 
@@ -116,16 +120,11 @@ do
     esac
 done
 
-while getopts b: option
-do
-    case "$option"
-        in
-        b)
-            TARGET=${OPTARG}
-            isTargetValid
-            main
-        ;;
-    esac
-done
+if [ "$1" != "" ] ; then
+	TARGET="$1"
+	isTargetValid
+	main
+fi
 
-echo "Yeah... I ain't running without a '-b' and target"
+echo "# Yeah... I ain't running without a target. Run with '-h' to figure out what to do"
+
