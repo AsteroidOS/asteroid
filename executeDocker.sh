@@ -12,10 +12,8 @@ command_exists() {
 installDocker() {
     if ! command_exists docker
     then
-        echo "Docker not installed, installing"
-        # Installs docker via convenience script to tmp dir
-        curl -fsSL "https://get.docker.com" -o /tmp/get-docker.sh
-        sudo sh /tmp/get-docker.sh
+        echo "Docker not installed, Please install before continuing"
+        exit
     else
         echo "Docker installed, skipping"
     fi
@@ -36,7 +34,7 @@ rmPreviousContainer(){
 # Executes the build
 executeBuild(){
     echo "Executing build"
-    sudo docker run --name asteroidos-toolchain -it -v /etc/passwd:/etc/passwd -u `id -u`:`id -g` -v "$HOME/.gitconfig:/$HOME/.gitconfig" -v "$(pwd):/asteroid" asteroidos-toolchain bash -c "source ./prepare-build.sh $TARGET && bitbake asteroid-image"
+    sudo docker run --name asteroidos-toolchain -it -v /etc/passwd:/etc/passwd -u $(id -u):$(id -g) -v "$HOME/.gitconfig:/$HOME/.gitconfig" -v "$(pwd):/asteroid" asteroidos-toolchain bash -c "source ./prepare-build.sh $TARGET && bitbake asteroid-image"
 }
 
 # Is the build target valid?
