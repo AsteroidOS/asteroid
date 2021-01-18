@@ -14,6 +14,23 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+declare -a devices=("anthias" "bass" "dory" "harmony" "inharmony" "lenok" "mooneye" "smelt" "sparrow" "sprat" "sturgeon" "swift" "tetra" "wren")
+
+function printNoDeviceInfo {
+    echo "Usage:"
+    echo "Updating the sources:\t$ . ./prepare-build.sh update"
+    echo "Building AsteroidOS:\t$ . ./prepare-build.sh device\n"
+    echo "Available devices:\n"
+
+    for device in ${devices[*]}; do
+        echo "$device"
+    done
+
+    echo "\nWiki - Building AsteroidOS: https://asteroidos.org/wiki/building-asteroidos/"
+
+    return 1
+}
+
 function pull_dir {
     if [ -d $1/.git/ ] ; then
         [ "$1" != "." ]   && pushd $1 > /dev/null
@@ -65,9 +82,22 @@ else
     mkdir -p src build/conf
 
     if [ "$#" -gt 0 ]; then
-        export MACHINE=${1}
+
+        # checking if the device is supported
+        valid=false
+        for device in ${devices[*]}; do
+            [[ "${1}" == "$device" ]] && valid=true
+        done
+        
+        if [[ "$valid" = true ]]; then
+            export MACHINE=${1}
+        else
+            printNoDeviceInfo
+            return 1
+        fi
     else
-        export MACHINE=dory
+        printNoDeviceInfo
+        return 1
     fi
 
     # Fetch all the needed layers in src/
