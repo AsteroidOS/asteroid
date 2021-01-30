@@ -18,15 +18,15 @@ declare -a devices=("anthias" "bass" "dory" "harmony" "inharmony" "lenok" "moone
 
 function printNoDeviceInfo {
     echo "Usage:"
-    echo "Updating the sources:\t$ . ./prepare-build.sh update"
-    echo "Building AsteroidOS:\t$ . ./prepare-build.sh device\n"
-    echo "Available devices:\n"
+    echo -e "Updating the sources:\t$ . ./prepare-build.sh update"
+    echo -e "Building AsteroidOS:\t$ . ./prepare-build.sh device\n"
+    echo -e "Available devices:\n"
 
     for device in ${devices[*]}; do
         echo "$device"
     done
 
-    echo "\nWiki - Building AsteroidOS: https://asteroidos.org/wiki/building-asteroidos/"
+    echo -e "\nWiki - Building AsteroidOS: https://asteroidos.org/wiki/building-asteroidos/"
 
     return 1
 }
