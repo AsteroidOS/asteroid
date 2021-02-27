@@ -117,6 +117,7 @@ else
     clone_dir src/meta-sparrow-hybris       https://github.com/AsteroidOS/meta-sparrow-hybris     master
     clone_dir src/meta-sprat-hybris         https://github.com/AsteroidOS/meta-sprat-hybris       master
     clone_dir src/meta-sturgeon-hybris      https://github.com/AsteroidOS/meta-sturgeon-hybris    master
+    clone_dir src/meta-sawfish-hybris       https://github.com/AsteroidOS/meta-sawfish-hybris     master
     clone_dir src/meta-smelt-hybris         https://github.com/AsteroidOS/meta-smelt-hybris       master
     clone_dir src/meta-swift-hybris         https://github.com/AsteroidOS/meta-swift-hybris       master
     clone_dir src/meta-tetra-hybris         https://github.com/AsteroidOS/meta-tetra-hybris       master
@@ -154,6 +155,7 @@ BBLAYERS = " \
   ${SRCDIR}/meta-dory-hybris \
   ${SRCDIR}/meta-lenok-hybris \
   ${SRCDIR}/meta-sturgeon-hybris \
+  ${SRCDIR}/meta-sawfish-hybris \
   ${SRCDIR}/meta-smelt-hybris \
   ${SRCDIR}/meta-mtk6580-hybris \
   ${SRCDIR}/meta-mooneye-hybris \
