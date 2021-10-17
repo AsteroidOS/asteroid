@@ -101,11 +101,11 @@ else
     fi
 
     # Fetch all the needed layers in src/
-    clone_dir src/oe-core                   https://github.com/openembedded/openembedded-core.git hardknott
-    clone_dir src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2021-04.1-hardknott
-    clone_dir src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git hardknott
-    clone_dir src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  hardknott
-    clone_dir src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   hardknott f5e0379951d32f01da229ecb017b885d618aa82c
+    clone_dir src/oe-core                   https://github.com/openembedded/openembedded-core.git honister
+    clone_dir src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           1.52
+    clone_dir src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git honister
+    clone_dir src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  honister
+    clone_dir src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   honister
     clone_dir src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master
     clone_dir src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master
     clone_dir src/meta-anthias-hybris       https://github.com/AsteroidOS/meta-anthias-hybris     master
