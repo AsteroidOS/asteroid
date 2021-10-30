@@ -156,7 +156,7 @@ BBLAYERS = " \
   ${SRCDIR}/meta-dory-hybris \
   ${SRCDIR}/meta-lenok-hybris \
   ${SRCDIR}/meta-sturgeon-hybris \
-  ${SRCDIR}/meta-sawfish-hybris
+  ${SRCDIR}/meta-sawfish-hybris \
   ${SRCDIR}/meta-skipjack-hybris \
   ${SRCDIR}/meta-smelt-hybris \
   ${SRCDIR}/meta-mtk6580-hybris \
