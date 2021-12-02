@@ -14,7 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-declare -a devices=("anthias" "bass" "dory" "firefish" "harmony" "inharmony" "lenok" "mooneye" "qemux86" "ray" "smelt" "sparrow" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "wren")
+declare -a devices=("anthias" "bass" "catfish" "dory" "firefish" "harmony" "inharmony" "lenok" "mooneye" "qemux86" "ray" "smelt" "sparrow" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "wren")
 
 function printNoDeviceInfo {
     echo "Usage:"
@@ -110,6 +110,7 @@ else
     clone_dir src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master
     clone_dir src/meta-anthias-hybris       https://github.com/AsteroidOS/meta-anthias-hybris     master
     clone_dir src/meta-bass-hybris          https://github.com/AsteroidOS/meta-bass-hybris        master
+    clone_dir src/meta-catfish-hybris       https://github.com/AsteroidOS/meta-catfish-hybris     master
     clone_dir src/meta-dory-hybris          https://github.com/AsteroidOS/meta-dory-hybris        master
     clone_dir src/meta-lenok-hybris         https://github.com/AsteroidOS/meta-lenok-hybris       master
     clone_dir src/meta-mtk6580-hybris       https://github.com/AsteroidOS/meta-mtk6580-hybris     master
@@ -154,6 +155,7 @@ BBLAYERS = " \
   ${SRCDIR}/meta-sprat-hybris \
   ${SRCDIR}/meta-tetra-hybris \
   ${SRCDIR}/meta-bass-hybris \
+  ${SRCDIR}/meta-catfish-hybris \
   ${SRCDIR}/meta-dory-hybris \
   ${SRCDIR}/meta-lenok-hybris \
   ${SRCDIR}/meta-ray-hybris \
