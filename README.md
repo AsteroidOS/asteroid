@@ -10,6 +10,6 @@ You can fully build a flashable image from source with the following commands, b
 
 For more information report to [the documentation](https://asteroidos.org/wiki/documentation/).
 
-Stay tuned about the project on IRC: #asteroid on irc.freenode.net and Twitter: [@AsteroidOS](http://twitter.com/AsteroidOS) .
+Stay tuned about the project on [Matrix](https://matrix.to/#/#Asteroid:matrix.org) and [Twitter](http://twitter.com/AsteroidOS).
 
 Report any problem on [the project's issues tracker](https://github.com/AsteroidOS/asteroid/issues).
