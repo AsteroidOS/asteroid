@@ -166,6 +166,7 @@ BBLAYERS = " \
   ${SRCDIR}/meta-smelt-hybris \
   ${SRCDIR}/meta-mtk6580-hybris \
   ${SRCDIR}/meta-mooneye-hybris \
+  ${SRCDIR}/meta-narwhal-hybris \
   ${SRCDIR}/meta-swift-hybris \
   ${SRCDIR}/meta-wren-hybris \
   "' > build/conf/bblayers.conf
