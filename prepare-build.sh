@@ -108,24 +108,7 @@ else
     clone_dir src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   honister
     clone_dir src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master
     clone_dir src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master
-    clone_dir src/meta-anthias-hybris       https://github.com/AsteroidOS/meta-anthias-hybris     master
-    clone_dir src/meta-bass-hybris          https://github.com/AsteroidOS/meta-bass-hybris        master
-    clone_dir src/meta-catfish-hybris       https://github.com/AsteroidOS/meta-catfish-hybris     master
-    clone_dir src/meta-dory-hybris          https://github.com/AsteroidOS/meta-dory-hybris        master
-    clone_dir src/meta-lenok-hybris         https://github.com/AsteroidOS/meta-lenok-hybris       master
-    clone_dir src/meta-mtk6580-hybris       https://github.com/AsteroidOS/meta-mtk6580-hybris     master
-    clone_dir src/meta-mooneye-hybris       https://github.com/AsteroidOS/meta-mooneye-hybris     master
-    clone_dir src/meta-narwhal-hybris       https://github.com/AsteroidOS/meta-narwhal-hybris     master
-    clone_dir src/meta-ray-hybris           https://github.com/AsteroidOS/meta-ray-hybris         master
-    clone_dir src/meta-sparrow-hybris       https://github.com/AsteroidOS/meta-sparrow-hybris     master
-    clone_dir src/meta-sprat-hybris         https://github.com/AsteroidOS/meta-sprat-hybris       master
-    clone_dir src/meta-sturgeon-hybris      https://github.com/AsteroidOS/meta-sturgeon-hybris    master
-    clone_dir src/meta-sawfish-hybris       https://github.com/AsteroidOS/meta-sawfish-hybris     master
-    clone_dir src/meta-skipjack-hybris      https://github.com/AsteroidOS/meta-skipjack-hybris    main
-    clone_dir src/meta-smelt-hybris         https://github.com/AsteroidOS/meta-smelt-hybris       master
-    clone_dir src/meta-swift-hybris         https://github.com/AsteroidOS/meta-swift-hybris       master
-    clone_dir src/meta-tetra-hybris         https://github.com/AsteroidOS/meta-tetra-hybris       master
-    clone_dir src/meta-wren-hybris          https://github.com/AsteroidOS/meta-wren-hybris        master
+    clone_dir src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master
 
     # Create local.conf and bblayers.conf on first run
     if [ ! -e build/conf/local.conf ]; then
@@ -150,26 +133,15 @@ BBLAYERS = " \
   ${SRCDIR}/meta-openembedded/meta-networking \
   ${SRCDIR}/meta-smartphone/meta-android \
   ${SRCDIR}/meta-openembedded/meta-python \
-  ${SRCDIR}/meta-openembedded/meta-filesystems \
-  ${SRCDIR}/meta-anthias-hybris \
-  ${SRCDIR}/meta-sparrow-hybris \
-  ${SRCDIR}/meta-sprat-hybris \
-  ${SRCDIR}/meta-tetra-hybris \
-  ${SRCDIR}/meta-bass-hybris \
-  ${SRCDIR}/meta-catfish-hybris \
-  ${SRCDIR}/meta-dory-hybris \
-  ${SRCDIR}/meta-lenok-hybris \
-  ${SRCDIR}/meta-ray-hybris \
-  ${SRCDIR}/meta-sturgeon-hybris \
-  ${SRCDIR}/meta-sawfish-hybris \
-  ${SRCDIR}/meta-skipjack-hybris \
-  ${SRCDIR}/meta-smelt-hybris \
-  ${SRCDIR}/meta-mtk6580-hybris \
-  ${SRCDIR}/meta-mooneye-hybris \
-  ${SRCDIR}/meta-narwhal-hybris \
-  ${SRCDIR}/meta-swift-hybris \
-  ${SRCDIR}/meta-wren-hybris \
-  "' > build/conf/bblayers.conf
+  ${SRCDIR}/meta-openembedded/meta-filesystems \' > build/conf/bblayers.conf
+
+        # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
+        layers=("${(@f)$(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort)}")
+        for layer in ${layers[*]}; do
+            echo "  \${SRCDIR}/$layer \\" >> build/conf/bblayers.conf
+        done
+
+        echo "\"" >> build/conf/bblayers.conf
     fi
 
     # Init build env
