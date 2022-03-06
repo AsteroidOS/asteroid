@@ -136,7 +136,7 @@ BBLAYERS = " \
   ${SRCDIR}/meta-openembedded/meta-filesystems \' > build/conf/bblayers.conf
 
         # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
-        layers=("${(@f)$(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort)}")
+        IFS=$'\n' layers=($(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort))
         for layer in ${layers[*]}; do
             echo "  \${SRCDIR}/$layer \\" >> build/conf/bblayers.conf
         done
