@@ -15,6 +15,8 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 declare -a devices=("anthias" "bass" "catfish" "dory" "firefish" "harmony" "inharmony" "lenok" "mooneye" "narwhal" "qemux86" "ray" "smelt" "sparrow" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "wren")
+declare -a architectures=("armv7vehf-neon")
+declare -a sstate_server="https://sstate.asteroidos.org"
 
 function printNoDeviceInfo {
     echo "Usage:"
@@ -110,38 +112,57 @@ else
     clone_dir src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master
     clone_dir src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master
 
+    # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
+    IFS=$'\n' layers=($(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort))
+
     # Create local.conf and bblayers.conf on first run
     if [ ! -e build/conf/local.conf ]; then
         echo -e "\e[32mWriting build/conf/local.conf\e[39m"
-        echo 'DISTRO = "asteroid"
-PACKAGE_CLASSES = "package_ipk"' >> build/conf/local.conf
+	cat > build/conf/local.conf <<-EOF
+	DISTRO = "asteroid"
+	PACKAGE_CLASSES = "package_ipk"
+	SSTATE_MIRRORS ?= " \\
+	$(
+	  for device in ${devices[*]}; do
+	    echo "  file://.* ${sstate_server}/${device}/sstate-cache/PATH;downloadfilename=PATH \\ "
+	  done
+	)
+	$(
+	  for arch in ${architectures[*]}; do
+	    echo "  file://.* ${sstate_server}/${arch}/sstate-cache/PATH;downloadfilename=PATH \\ "
+	  done
+	)
+	  file://.* ${sstate_server}/allarch/sstate-cache/PATH;downloadfilename=PATH \\
+	  file://.* ${sstate_server}/other-sstate/sstate-cache/PATH;downloadfilename=PATH \\
+	"
+	EOF
     fi
 
     if [ ! -e build/conf/bblayers.conf ]; then
-        echo -e "\e[32mWriting build/conf/bblayers.conf\e[39m"
-        echo 'BBPATH = "${TOPDIR}"
-SRCDIR = "${@os.path.abspath(os.path.join("${TOPDIR}", "../src/"))}"
-
-BBLAYERS = " \
-  ${SRCDIR}/meta-qt5 \
-  ${SRCDIR}/oe-core/meta \
-  ${SRCDIR}/meta-asteroid \
-  ${SRCDIR}/meta-asteroid-community \
-  ${SRCDIR}/meta-openembedded/meta-oe \
-  ${SRCDIR}/meta-openembedded/meta-multimedia \
-  ${SRCDIR}/meta-openembedded/meta-gnome \
-  ${SRCDIR}/meta-openembedded/meta-networking \
-  ${SRCDIR}/meta-smartphone/meta-android \
-  ${SRCDIR}/meta-openembedded/meta-python \
-  ${SRCDIR}/meta-openembedded/meta-filesystems \' > build/conf/bblayers.conf
-
-        # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
-        IFS=$'\n' layers=($(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort))
-        for layer in ${layers[*]}; do
-            echo "  \${SRCDIR}/$layer \\" >> build/conf/bblayers.conf
-        done
-
-        echo "\"" >> build/conf/bblayers.conf
+	echo -e "\e[32mWriting build/conf/bblayers.conf\e[39m"
+	cat > build/conf/bblayers.conf <<-EOF
+	BBPATH = "\${TOPDIR}"
+	SRCDIR = "\${@os.path.abspath(os.path.join("\${TOPDIR}", "../src/"))}"
+	
+	BBLAYERS = " \\
+	  \${SRCDIR}/meta-qt5 \\
+	  \${SRCDIR}/oe-core/meta \\
+	  \${SRCDIR}/meta-asteroid \\
+	  \${SRCDIR}/meta-asteroid-community \\
+	  \${SRCDIR}/meta-openembedded/meta-oe \\
+	  \${SRCDIR}/meta-openembedded/meta-multimedia \\
+	  \${SRCDIR}/meta-openembedded/meta-gnome \\
+	  \${SRCDIR}/meta-openembedded/meta-networking \\
+	  \${SRCDIR}/meta-smartphone/meta-android \\
+	  \${SRCDIR}/meta-openembedded/meta-python \\
+	  \${SRCDIR}/meta-openembedded/meta-filesystems \\
+	$(
+	  for layer in ${layers[*]}; do
+	    echo "  \${SRCDIR}/$layer \\"
+	  done
+	)
+	"
+	EOF
     fi
 
     # Init build env

@@ -1,0 +1,25 @@
+{
+  "devices": {
+    "harmony": {
+      "meta": "mtk6580"
+    },
+    "inharmony": {
+      "meta": "mtk6580"
+    },
+    "firefish": {
+      "meta": "ray"
+    }
+  },
+  "packages": {
+    "asteroid-icons": {
+      "gitName": "asteroid-icons-ion",
+      "recipe": "asteroid-icons-ion"
+    }
+  },
+  "coreVCS": {
+    "Asteroid": {
+      "url": "https://github.com/LecrisUT/AsteroidOS",
+      "branch": "add-CI"
+    }
+  }
+}
