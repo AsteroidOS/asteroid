@@ -16,6 +16,17 @@
 
 declare -a devices=("anthias" "bass" "beluga" "catfish" "dory" "firefish" "harmony" "inharmony" "lenok" "mooneye" "narwhal" "qemux86" "ray" "smelt" "sparrow" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "wren")
 
+declare -a layers=(
+    "src/oe-core                   https://github.com/openembedded/openembedded-core.git kirkstone"
+    "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.0"
+    "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git kirkstone"
+    "src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  kirkstone"
+    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   kirkstone"
+    "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
+    "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
+    "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master"
+)
+
 function printNoDeviceInfo {
     echo "Usage:"
     echo -e "Updating the sources:\t$ . ./prepare-build.sh update"
@@ -39,6 +50,7 @@ function pull_dir {
             echo -e "\e[32mPulling $1\e[39m"
             git pull --rebase
             [ $? -ne 0 ] && echo -e "\e[91mError pulling $1\e[39m"
+            git checkout $2
         else
             echo -e "\e[35mSkipping $1\e[39m"
         fi
@@ -63,10 +75,16 @@ function clone_dir {
 # Update layers in src/
 if [[ "$1" == "update" ]]; then
     pull_dir .
-    for d in src/*/ ; do
-        pull_dir $d
+    for l in "${layers[@]}"; do
+        if [ -n "$ZSH_VERSION" ]; then
+            read -A layer <<< "$l"
+        else
+            read -a layer <<< "$l"
+        fi
+        if [ -d "${layer[@]:0:1}" ]; then
+            pull_dir "${layer[@]:0:1}" "${layer[@]:2:1}"
+        fi
     done
-    pull_dir src/oe-core/bitbake
 elif [[ "$1" == "git-"* ]]; then
     base=$(dirname $0)
     gitcmd=${1:4} # drop git-
@@ -101,14 +119,14 @@ else
     fi
 
     # Fetch all the needed layers in src/
-    clone_dir src/oe-core                   https://github.com/openembedded/openembedded-core.git kirkstone
-    clone_dir src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.0
-    clone_dir src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git kirkstone
-    clone_dir src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  kirkstone
-    clone_dir src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   kirkstone
-    clone_dir src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master
-    clone_dir src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master
-    clone_dir src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master
+    for l in "${layers[@]}"; do
+        if [ -n "$ZSH_VERSION" ]; then
+            read -A layer <<< "$l"
+        else
+            read -a layer <<< "$l"
+        fi
+        clone_dir "${layer[@]:0:1}" "${layer[@]:1:1}" "${layer[@]:2:1}"
+    done
 
     # Create local.conf and bblayers.conf on first run
     if [ ! -e build/conf/local.conf ]; then
