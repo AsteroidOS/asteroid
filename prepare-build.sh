@@ -14,7 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-declare -a devices=("anthias" "bass" "beluga" "catfish" "dory" "firefish" "harmony" "inharmony" "lenok" "mooneye" "narwhal" "qemux86" "ray" "smelt" "sparrow" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "wren")
+declare -a devices=("anthias" "bass" "beluga" "catfish" "dory" "firefish" "harmony" "inharmony" "lenok" "minnow" "mooneye" "narwhal" "qemux86" "ray" "smelt" "sparrow" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "wren")
 
 declare -a layers=(
     "src/oe-core                   https://github.com/openembedded/openembedded-core.git kirkstone"
