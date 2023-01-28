@@ -42,15 +42,22 @@ function printNoDeviceInfo {
     return 1
 }
 
+# When updating, if the user has a personal fork of the subproject, and has set the 
+# upstream URL, this will fetch updates from the upstream repository
 function pull_dir {
     if [ -d $1/.git/ ] ; then
         [ "$1" != "." ]   && pushd $1 > /dev/null
         git symbolic-ref HEAD &> /dev/null
         if [ $? -eq 0 ] ; then
             echo -e "\e[32mPulling $1\e[39m"
-            git pull --rebase
+            if git remote get-url upstream > /dev/null
+            then
+                git pull upstream --rebase "$2"
+            else
+                git pull --rebase
+            fi
             [ $? -ne 0 ] && echo -e "\e[91mError pulling $1\e[39m"
-            git checkout $2
+            git checkout "$2"
         else
             echo -e "\e[35mSkipping $1\e[39m"
         fi
