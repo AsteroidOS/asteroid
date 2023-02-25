@@ -21,7 +21,7 @@ declare -a layers=(
     "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.0"
     "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git kirkstone"
     "src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  kirkstone"
-    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   kirkstone"
+    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   kirkstone 038458fd1fe3d946ce084865adb09238c12eaf90"
     "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
     "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
     "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master"
@@ -132,7 +132,7 @@ else
         else
             read -a layer <<< "$l"
         fi
-        clone_dir "${layer[@]:0:1}" "${layer[@]:1:1}" "${layer[@]:2:1}"
+        clone_dir "${layer[@]:0:1}" "${layer[@]:1:1}" "${layer[@]:2:1}" "${layer[@]:3:1}"
     done
 
     # Create local.conf and bblayers.conf on first run
