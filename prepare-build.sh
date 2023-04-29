@@ -19,7 +19,7 @@ declare -a devices=("anthias" "bass" "beluga" "catfish" "dory" "firefish" "harmo
 declare -a layers=(
     "src/oe-core                   https://github.com/openembedded/openembedded-core.git mickledore"
     "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.4"
-    "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git mickledore"
+    "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git master c5f330bc9ae72989b8f880aa15e738a3c8fce4e7"
     "src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  mickledore"
     "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   mickledore"
     "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
