@@ -27,6 +27,20 @@ declare -a layers=(
     "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master"
 )
 
+declare -a layers_conf=(
+    "meta-qt5"
+    "oe-core/meta"
+    "meta-asteroid"
+    "meta-asteroid-community"
+    "meta-openembedded/meta-oe"
+    "meta-openembedded/meta-multimedia"
+    "meta-openembedded/meta-gnome"
+    "meta-openembedded/meta-networking"
+    "meta-smartphone/meta-android"
+    "meta-openembedded/meta-python"
+    "meta-openembedded/meta-filesystems"
+)
+
 function printNoDeviceInfo {
     echo "Usage:"
     echo -e "Updating the sources:\t$ . ./prepare-build.sh update"
@@ -79,6 +93,27 @@ function clone_dir {
     fi
 }
 
+function update_layer_config() {
+    # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
+    IFS=$'\n' layers_smartwatch=($(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort))
+    layers=("${layers_conf[@]}" "${layers_smartwatch[@]}")
+    for l in "${layers[@]}"; do
+        layer_line="  \${SRCDIR}/${l} \\\\"
+        # Check if layer exists, insert if it doesn't.
+        awk -i inplace -v line="$layer_line" -v l="$l" "
+        FNR==NR {
+            if(\$0~l){ found=1 }
+            next
+        }
+        /BBLAYERS/ && found==\"\" {
+            print \$0 ORS line
+            next
+        }
+        1
+        " build/conf/bblayers.conf build/conf/bblayers.conf
+    done
+}
+
 # Update layers in src/
 if [[ "$1" == "update" ]]; then
     pull_dir .
@@ -92,6 +127,7 @@ if [[ "$1" == "update" ]]; then
             pull_dir "${layer[@]:0:1}" "${layer[@]:2:1}"
         fi
     done
+    update_layer_config
 elif [[ "$1" == "git-"* ]]; then
     base=$(dirname $0)
     gitcmd=${1:4} # drop git-
@@ -148,25 +184,8 @@ PACKAGE_CLASSES = "package_ipk"' >> build/conf/local.conf
 SRCDIR = "${@os.path.abspath(os.path.join("${TOPDIR}", "../src/"))}"
 
 BBLAYERS = " \
-  ${SRCDIR}/meta-qt5 \
-  ${SRCDIR}/oe-core/meta \
-  ${SRCDIR}/meta-asteroid \
-  ${SRCDIR}/meta-asteroid-community \
-  ${SRCDIR}/meta-openembedded/meta-oe \
-  ${SRCDIR}/meta-openembedded/meta-multimedia \
-  ${SRCDIR}/meta-openembedded/meta-gnome \
-  ${SRCDIR}/meta-openembedded/meta-networking \
-  ${SRCDIR}/meta-smartphone/meta-android \
-  ${SRCDIR}/meta-openembedded/meta-python \
-  ${SRCDIR}/meta-openembedded/meta-filesystems \' > build/conf/bblayers.conf
-
-        # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
-        IFS=$'\n' layers=($(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort))
-        for layer in ${layers[*]}; do
-            echo "  \${SRCDIR}/$layer \\" >> build/conf/bblayers.conf
-        done
-
-        echo "\"" >> build/conf/bblayers.conf
+"' > build/conf/bblayers.conf
+    update_layer_config
     fi
 
     # Init build env
