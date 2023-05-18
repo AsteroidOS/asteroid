@@ -116,7 +116,7 @@ function update_layer_config() {
 
 # Update layers in src/
 if [[ "$1" == "update" ]]; then
-    pull_dir .
+    pull_dir . master
     for l in "${layers[@]}"; do
         if [ -n "$ZSH_VERSION" ]; then
             read -A layer <<< "$l"
