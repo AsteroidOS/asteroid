@@ -64,7 +64,7 @@ function pull_dir {
         git symbolic-ref HEAD &> /dev/null
         if [ $? -eq 0 ] ; then
             echo -e "\e[32mPulling $1\e[39m"
-            if git remote get-url upstream > /dev/null
+            if git remote get-url upstream &> /dev/null
             then
                 git pull upstream --rebase "$2"
             else
