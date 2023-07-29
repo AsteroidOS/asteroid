@@ -17,10 +17,10 @@
 declare -a devices=("anthias" "bass" "beluga" "catfish" "dory" "firefish" "harmony" "hoki" "koi" "inharmony" "lenok" "minnow" "mooneye" "narwhal" "nemo" "pike" "qemux86" "ray" "smelt" "sparrow" "sparrow-mainline" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "triggerfish" "wren")
 
 declare -a layers=(
-    "src/oe-core                   https://github.com/openembedded/openembedded-core.git kirkstone"
+    "src/oe-core                   https://github.com/openembedded/openembedded-core.git kirkstone 4766ba017b7562e42b33fde7f2e84c2a339e3f4c"
     "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.0"
-    "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git kirkstone"
-    "src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  kirkstone"
+    "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git kirkstone 36707815060e387c2370962b5eb21bac7750f924"
+    "src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  kirkstone bff5bd937f0776166e81a63f3dd39ede348ef758"
     "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   kirkstone 038458fd1fe3d946ce084865adb09238c12eaf90"
     "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
     "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
