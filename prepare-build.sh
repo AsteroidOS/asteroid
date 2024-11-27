@@ -98,8 +98,8 @@ function update_layer_config() {
     layers_smartwatch=($(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort))
     layers=("${layers_conf[@]}" "${layers_smartwatch[@]}")
     tmpfile=$(mktemp)
-    cp build/conf/bblayers.conf "${tmpfile}"
     for l in "${layers[@]}"; do
+        cp build/conf/bblayers.conf "${tmpfile}"
         layer_line="  \${SRCDIR}/${l} \\\\"
         # Check if layer exists, insert if it doesn't.
         awk -v line="$layer_line" -v l="$l" "
