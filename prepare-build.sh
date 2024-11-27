@@ -97,10 +97,12 @@ function update_layer_config() {
     # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
     layers_smartwatch=($(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort))
     layers=("${layers_conf[@]}" "${layers_smartwatch[@]}")
+    tmpfile=$(mktemp)
+    cp build/conf/bblayers.conf "${tmpfile}"
     for l in "${layers[@]}"; do
         layer_line="  \${SRCDIR}/${l} \\\\"
         # Check if layer exists, insert if it doesn't.
-        awk -i inplace -v line="$layer_line" -v l="$l" "
+        awk -v line="$layer_line" -v l="$l" "
         FNR==NR {
             if(\$0~l){ found=1 }
             next
@@ -110,8 +112,9 @@ function update_layer_config() {
             next
         }
         1
-        " build/conf/bblayers.conf build/conf/bblayers.conf
+        " "${tmpfile}" > build/conf/bblayers.conf 
     done
+    rm "${tmpfile}"
 }
 
 # Update layers in src/
