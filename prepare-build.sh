@@ -112,7 +112,7 @@ function update_layer_config() {
             next
         }
         1
-        " "${tmpfile}" > build/conf/bblayers.conf 
+        " "${tmpfile}" "${tmpfile}" > build/conf/bblayers.conf 
     done
     rm "${tmpfile}"
 }
