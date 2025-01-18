@@ -94,6 +94,9 @@ function clone_dir {
 }
 
 function update_layer_config() {
+    if [ -e build/conf/bblayers.conf ]; then
+        return
+    fi
     # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
     layers_smartwatch=($(find src/meta-smartwatch -mindepth 1 -name "*meta-*" -type d | sed -e 's|src/||' | sort))
     layers=("${layers_conf[@]}" "${layers_smartwatch[@]}")
