@@ -94,7 +94,7 @@ function clone_dir {
 }
 
 function update_layer_config() {
-    if [ -e build/conf/bblayers.conf ]; then
+    if [ ! -e build/conf/bblayers.conf ]; then
         return
     fi
     # Find all layers under src/meta-smartwatch, remove the src/ prefix, sort alphabetically, and store it in an array.
