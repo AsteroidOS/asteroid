@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:noble
 
 # Install packages required to build AsteroidOS
 # And add the en_US.utf8 locale because it is required and not installed by default in minimal Ubuntu images
