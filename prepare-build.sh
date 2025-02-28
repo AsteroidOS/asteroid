@@ -14,7 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-declare -a devices=("anthias" "bass" "beluga" "catfish" "dory" "firefish" "harmony" "hoki" "koi" "inharmony" "lenok" "minnow" "mooneye" "narwhal" "nemo" "pike" "qemux86" "ray" "smelt" "sparrow" "sparrow-mainline" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "triggerfish" "wren")
+declare -a devices=("anthias" "bass" "beluga" "catfish" "dory" "emulator" "firefish" "harmony" "hoki" "koi" "inharmony" "lenok" "minnow" "mooneye" "narwhal" "nemo" "pike" "ray" "smelt" "sparrow" "sparrow-mainline" "sprat" "sturgeon" "sawfish" "skipjack" "swift" "tetra" "triggerfish" "wren")
 
 declare -a layers=(
     "src/oe-core                   https://github.com/openembedded/openembedded-core.git scarthgap"
