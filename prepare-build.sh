@@ -17,16 +17,16 @@
 declare -a devices=()
 
 declare -a layers=(
-    "src/oe-core                   https://github.com/openembedded/openembedded-core.git walnascar"
-    "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.12"
-    "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git walnascar"
+    "src/oe-core                   https://github.com/openembedded/openembedded-core.git whinlatter"
+    "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.16"
+    "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git whinlatter"
     "src/meta-qt6                  git://code.qt.io/yocto/meta-qt6.git                     6.11"
-    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   walnascar"
-    "src/meta-clang                https://github.com/kraj/meta-clang.git                walnascar"
+    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   master"
+    "src/meta-clang                https://github.com/kraj/meta-clang.git                whinlatter"
     "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
     "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
     "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master"
-    "src/meta-virtualization       https://git.yoctoproject.org/meta-virtualization       walnascar"
+    "src/meta-virtualization       https://git.yoctoproject.org/meta-virtualization       whinlatter"
 )
 
 declare -a layers_conf=(
