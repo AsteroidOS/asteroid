@@ -22,9 +22,9 @@ declare -a layers=(
     "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git walnascar"
     "src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  walnascar"
     "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   walnascar"
-    "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
-    "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
-    "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master"
+    "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           2.0"
+    "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community 2.0"
+    "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     2.0"
 )
 
 declare -a layers_conf=(
