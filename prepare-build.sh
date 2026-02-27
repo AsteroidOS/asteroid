@@ -21,10 +21,10 @@ declare -a layers=(
     "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.16"
     "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git whinlatter"
     "src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  whinlatter"
-    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   master"
-    "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
-    "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
-    "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master"
+    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   whinlatter"
+    "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           whinlatter"
+    "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community whinlatter"
+    "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     whinlatter"
 )
 
 declare -a layers_conf=(
