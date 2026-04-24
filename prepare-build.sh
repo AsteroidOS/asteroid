@@ -20,7 +20,7 @@ declare -a layers=(
     "src/oe-core                   https://github.com/openembedded/openembedded-core.git walnascar"
     "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.12"
     "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git walnascar"
-    "src/meta-qt5                  https://github.com/meta-qt5/meta-qt5                  walnascar"
+    "src/meta-qt6                  git://code.qt.io/yocto/meta-qt6.git                     6.11"
     "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   walnascar"
     "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
     "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
@@ -28,7 +28,7 @@ declare -a layers=(
 )
 
 declare -a layers_conf=(
-    "meta-qt5"
+    "meta-qt6"
     "oe-core/meta"
     "meta-asteroid"
     "meta-asteroid-community"
