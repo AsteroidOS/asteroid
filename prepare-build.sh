@@ -26,6 +26,7 @@ declare -a layers=(
     "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
     "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
     "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master"
+    "src/meta-virtualization       https://git.yoctoproject.org/meta-virtualization       walnascar"
 )
 
 declare -a layers_conf=(
@@ -41,6 +42,7 @@ declare -a layers_conf=(
     "meta-openembedded/meta-python"
     "meta-openembedded/meta-filesystems"
     "meta-clang"
+    "meta-virtualization"
 )
 
 function printNoDeviceInfo {
