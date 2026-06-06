@@ -22,6 +22,7 @@ declare -a layers=(
     "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git walnascar"
     "src/meta-qt6                  git://code.qt.io/yocto/meta-qt6.git                     6.11"
     "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   walnascar"
+    "src/meta-clang                https://github.com/kraj/meta-clang.git                walnascar"
     "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
     "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
     "src/meta-smartwatch           https://github.com/AsteroidOS/meta-smartwatch.git     master"
@@ -39,6 +40,7 @@ declare -a layers_conf=(
     "meta-smartphone/meta-android"
     "meta-openembedded/meta-python"
     "meta-openembedded/meta-filesystems"
+    "meta-clang"
 )
 
 function printNoDeviceInfo {
