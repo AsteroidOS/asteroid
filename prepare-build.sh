@@ -14,7 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-declare -a devices=("anthias" "bass" "beluga" "catfish" "dory" "emulator" "firefish" "harmony" "hoki" "inharmony" "koi" "lenok" "minnow" "mooneye" "narwhal" "nemo" "pike" "ray" "rinato" "rubyfish" "sawfish" "skipjack" "smelt" "sparrow" "sparrow-mainline" "sprat" "sturgeon" "swift" "tetra" "triggerfish" "wren")
+declare -a devices=()
 
 declare -a layers=(
     "src/oe-core                   https://github.com/openembedded/openembedded-core.git walnascar"
@@ -97,6 +97,15 @@ function clone_dir {
     fi
 }
 
+# Populate `devices` from meta-smartwatch's machine configs. One layer can ship
+# several machines, so key off conf/machine/*.conf rather than the layer dirs.
+function discover_devices {
+    for l in "${layers[@]}"; do
+        [[ "$l" == *meta-smartwatch.git* ]] && clone_dir $l
+    done
+    devices=($(find src/meta-smartwatch -path "*/conf/machine/*.conf" -type f -exec basename {} .conf \; 2>/dev/null | sort))
+}
+
 function update_layer_config() {
     if [ ! -e build/conf/bblayers.conf ]; then
         return
@@ -151,6 +160,7 @@ elif [[ "$1" == "git-"* ]]; then
 # Prepare bitbake
 else
     mkdir -p src build/conf
+    discover_devices
 
     if [ "$#" -gt 0 ]; then
 
