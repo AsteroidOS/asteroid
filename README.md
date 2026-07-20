@@ -8,7 +8,7 @@ You can fully build a flashable image from source with the following commands, b
     . ./prepare-build.sh <your machine id, e.g., dory>
     bitbake asteroid-image
 
-For more information report to [the documentation](https://asteroidos.org/wiki/documentation/).
+For more information refer to [the documentation](https://asteroidos.org/wiki/documentation/).
 
 Stay tuned about the project on [Matrix](https://matrix.to/#/#Asteroid:matrix.org) and [Twitter](http://twitter.com/AsteroidOS).
 
