@@ -1,7 +1,7 @@
 AsteroidOS build system
 =======================
 
-[AsteroidOS](http://asteroidos.org) is a free and open-source smartwatch platform based on OpenEmbedded, libhybris and Qt5.
+[AsteroidOS](http://asteroidos.org) is a free and open-source smartwatch platform based on OpenEmbedded, libhybris and Qt6.
 
 You can fully build a flashable image from source with the following commands, but be careful it will take several hours:
 
