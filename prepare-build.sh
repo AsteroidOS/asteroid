@@ -101,7 +101,14 @@ function clone_dir {
 # several machines, so key off conf/machine/*.conf rather than the layer dirs.
 function discover_devices {
     for l in "${layers[@]}"; do
-        [[ "$l" == *meta-smartwatch.git* ]] && clone_dir $l
+        if [[ "$l" == *meta-smartwatch.git* ]]; then
+            if [ -n "$ZSH_VERSION" ]; then
+                read -A layer <<< "$l"
+            else
+                read -a layer <<< "$l"
+            fi
+            clone_dir "${layer[@]:0:1}" "${layer[@]:1:1}" "${layer[@]:2:1}" "${layer[@]:3:1}"
+        fi
     done
     devices=($(find src/meta-smartwatch -path "*/conf/machine/*.conf" -type f -exec basename {} .conf \; 2>/dev/null | sort))
 }
