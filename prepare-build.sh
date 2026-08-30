@@ -21,7 +21,7 @@ declare -a layers=(
     "src/oe-core/bitbake           https://github.com/openembedded/bitbake.git           2.16"
     "src/meta-openembedded         https://github.com/openembedded/meta-openembedded.git whinlatter"
     "src/meta-qt6                  git://code.qt.io/yocto/meta-qt6.git                     6.11"
-    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   master"
+    "src/meta-smartphone           https://github.com/shr-distribution/meta-smartphone   whinlatter"
     "src/meta-clang                https://github.com/kraj/meta-clang.git                whinlatter"
     "src/meta-asteroid             https://github.com/AsteroidOS/meta-asteroid           master"
     "src/meta-asteroid-community   https://github.com/AsteroidOS/meta-asteroid-community master"
