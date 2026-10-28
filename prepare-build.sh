@@ -135,15 +135,22 @@ if [[ "$1" == "update" ]]; then
     done
     update_layer_config
 elif [[ "$1" == "git-"* ]]; then
-    base=$(dirname $0)
+    base=$(dirname "$0")
     gitcmd=${1:4} # drop git-
     shift
-    for d in $base $base/src/* $base/src/oe-core/bitbake; do
-        if [ $(git -C $d $gitcmd "$@" | wc -c) -ne 0 ]; then
+    output_file=$(mktemp)
+    for d in "$base" "$base"/src/* "$base"/src/oe-core/bitbake; do
+        [ -d "$d" ] || continue
+        prefix=$(git -C "$d" rev-parse --show-prefix 2>/dev/null) || continue
+        [ -z "$prefix" ] || continue
+
+        git -C "$d" "$gitcmd" "$@" > "$output_file"
+        if [ -s "$output_file" ]; then
             echo -e "\e[35mgit -C $d $gitcmd $@ \e[39m"
-            git -C $d $gitcmd "$@"
+            cat "$output_file"
         fi
     done
+    rm "$output_file"
 # Prepare bitbake
 else
     mkdir -p src build/conf
